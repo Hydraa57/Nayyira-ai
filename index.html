@@ -2248,7 +2248,33 @@
       gap: 8px
     }
 
-    .pending-p {
+    /* PENDING ALERT */
+    .pending-alert {
+      display: none;
+      background: #0d1e10;
+      border: 1.5px solid #22c55e;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      animation: slideUp 0.4s ease-out;
+      width: 100%;
+      box-sizing: border-box
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .pending-h {
       color: #8aab90;
       font-size: .85rem;
       line-height: 1.6;
@@ -3664,26 +3690,21 @@
           <div class="ori" id="ori" style="display:none"></div>
         </div>
       </div>
-    </div>
-    <div class="pending-alert" id="pending-alert"
-      style="display:none;background:#fffbeb;border:1px solid #fcd34d;padding:1.5rem;border-radius:12px;margin-bottom:1.5rem;text-align:center">
-      <div class="pending-h" style="font-weight:700;color:#92400e;margin-bottom:.5rem"><span>⚠️</span> Tagihan Belum
-        Dibayar</div>
-      <div class="pending-p" id="pending-msg" style="color:#78350f;font-size:.9rem;margin-bottom:.5rem"></div>
-      <div class="pending-email-note" style="color:#92400e;font-size:.85rem">📧 Silakan cek email kamu (termasuk folder
-        spam) untuk detail pembayarannya.</div>
-      <br>
-      <a href="#" class="btn-continue" id="btn-continue" target="_blank"
-        style="display:inline-block;background:#d97706;color:#fff;padding:.6rem 1.2rem;border-radius:6px;text-decoration:none;font-weight:600">Lanjutkan
-        Pembayaran →</a>
-    </div>
-    <button class="submit-btn" id="sbtn" onclick="submit()">Lanjut ke Pembayaran →</button>
-    <div class="form-note">🔒 Pembayaran aman via Mayar · Spreadsheet aktif dalam &lt;5 menit</div>
-    <div class="form-trust">
-      <span><span class="ti">✓</span>Tanpa install</span>
-      <span><span class="ti">✓</span>Data di Google Drive kamu</span>
-      <span><span class="ti">✓</span>Bisa berhenti kapanpun</span>
-    </div>
+      <div class="pending-alert" id="pending-alert">
+        <div class="pending-h"><span>⚠️</span> Tagihan Belum Dibayar</div>
+        <div class="pending-p" id="pending-msg"></div>
+        <div class="pending-email-note">📧 Silakan cek email kamu (termasuk folder spam) untuk detail pembayarannya.
+        </div>
+        <br>
+        <a href="#" class="btn-continue" id="btn-continue" target="_blank">Lanjutkan Pembayaran →</a>
+      </div>
+      <button class="submit-btn" id="sbtn" onclick="submit()">Lanjut ke Pembayaran →</button>
+      <div class="form-note">🔒 Pembayaran aman via Mayar · Spreadsheet aktif dalam &lt;5 menit</div>
+      <div class="form-trust">
+        <span><span class="ti">✓</span>Tanpa install</span>
+        <span><span class="ti">✓</span>Data di Google Drive kamu</span>
+        <span><span class="ti">✓</span>Bisa berhenti kapanpun</span>
+      </div>
     </div>
   </section>
 
@@ -3749,8 +3770,6 @@
         const data = await res.json();
 
         if (data.status === 'already_pending') {
-          // Alert Browser sesuai permintaan user
-          alert('Tagihan sebelumnya belum lunas. Silakan cek email Anda (termasuk folder spam) untuk melakukan pembayaran.');
 
           // Tampilkan juga UI Alert premium
           document.getElementById('pending-msg').textContent = data.message || 'Kamu masih punya tagihan yang belum dibayar. Silakan selesaikan pembayaran sebelumnya ya!';
