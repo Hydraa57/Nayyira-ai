@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
-  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
     * {
       margin: 0;
@@ -3658,7 +3658,7 @@
         </div>
         <div class="ref-feedback" id="ref-feedback"></div>
       </div>
-      <label style="display:block;margin-bottom:.7rem">Pilih paket</label>
+    <label style="display:block;margin-bottom:.7rem">Pilih paket</label>
       <div class="pks">
         <div class="pk sel" id="pk-mulai" onclick="selectPaket('mulai')">
           <div class="pk-n">Paket Mulai</div>
@@ -3683,7 +3683,15 @@
           <div class="pk-note">Bulan ke-2+</div>
         </div>
       </div>
-      <div class="total-row">
+      <div id="pasangan-fields" style="display:none;background:#091510;border:1px solid #1a3020;border-radius:14px;padding:1.1rem;margin-bottom:1rem">
+      <div style="font-size:.72rem;color:#4ade80;font-weight:600;margin-bottom:.8rem">💑 Data Pasangan</div>
+      <div class="fg2" style="margin:0 0 .8rem">
+        <div class="fg" style="margin:0"><label>Nama Pasangan</label><input id="nama_pasangan" placeholder="Nama pasanganmu" type="text"></div>
+        <div class="fg" style="margin:0"><label>No. WA Pasangan</label><input id="no_wa_pasangan" placeholder="628xxxxxxxxxx" type="text"></div>
+      </div>
+      <div style="font-size:.72rem;color:#4a6a50">📝 Pasangan akan mendapat WA instruksi setup setelah pembayaran.</div>
+    </div>
+    <div class="total-row">
         <div class="total-l">Total pembayaran</div>
         <div style="display:flex;align-items:baseline">
           <div class="total-v" id="tv">Rp 99.000</div>
@@ -3732,6 +3740,8 @@
         const el = document.getElementById('pk-' + x);
         if (el) el.classList.toggle('sel', x === p);
       });
+      const pf = document.getElementById('pasangan-fields');
+      if (pf) pf.style.display = p === 'pasangan' ? 'block' : 'none';
       updateTotal();
     }
 
