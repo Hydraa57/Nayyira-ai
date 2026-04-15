@@ -2214,82 +2214,82 @@
     }
 
     /* PENDING ALERT */
+    /* PENDING ALERT */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px) }
+      to { opacity: 1; transform: translateY(0) }
+    }
+
     .pending-alert {
       display: none;
-      background: #0d1e10;
-      border: 1.5px solid #22c55e;
+      background: #0f1f12;
+      border: 1px solid #2a4a30;
       border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      animation: slideUp 0.4s ease-out
+      padding: 1.4rem 1.5rem;
+      margin-bottom: 1.2rem;
+      animation: slideUp 0.4s ease-out;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative
     }
 
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
+    .pending-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: .7rem
     }
 
-    .pending-h {
-      color: #4ade80;
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: .5rem;
+    .pending-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(251,191,36,.1);
+      border: 1px solid rgba(251,191,36,.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px
+      font-size: .9rem;
+      flex-shrink: 0
     }
 
-    /* PENDING ALERT */
-    .pending-alert {
-      display: none;
-      background: #0d1e10;
-      border: 1.5px solid #22c55e;
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      animation: slideUp 0.4s ease-out;
-      width: 100%;
-      box-sizing: border-box
+    .pending-title {
+      font-size: .88rem;
+      font-weight: 700;
+      color: #e8f5ec
     }
 
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
+    .pending-subtitle {
+      font-size: .72rem;
+      color: #4a6a50;
+      margin-top: 1px
     }
 
     .pending-h {
-      color: #8aab90;
-      font-size: .85rem;
-      line-height: 1.6;
-      margin-bottom: 1.2rem
+      font-size: .82rem;
+      color: #6b8a70;
+      line-height: 1.65;
+      margin-bottom: 1rem
     }
 
     .pending-email-note {
-      background: rgba(34, 197, 94, 0.1);
-      color: #4ade80;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: .75rem;
-      margin-bottom: 1.2rem;
-      display: inline-block;
-      border: 1px dashed rgba(74, 222, 128, 0.3)
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: #091510;
+      border: 1px solid #1a3020;
+      color: #6b8a70;
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: .76rem;
+      margin-bottom: 1.1rem;
+      text-align: left;
+      line-height: 1.55
+    }
+
+    .pending-actions {
+      display: flex;
+      gap: 8px
     }
 
     .btn-continue {
@@ -3691,12 +3691,22 @@
         </div>
       </div>
       <div class="pending-alert" id="pending-alert">
-        <div class="pending-h"><span>⚠️</span> Tagihan Belum Dibayar</div>
-        <div class="pending-p" id="pending-msg"></div>
-        <div class="pending-email-note">📧 Silakan cek email kamu (termasuk folder spam) untuk detail pembayarannya.
+        <div class="pending-header">
+          <div class="pending-icon">⚠️</div>
+          <div>
+            <div class="pending-title">Ada tagihan yang belum selesai</div>
+            <div class="pending-subtitle">Selesaikan dulu sebelum melanjutkan</div>
+          </div>
         </div>
-        <br>
-        <a href="#" class="btn-continue" id="btn-continue" target="_blank">Lanjutkan Pembayaran →</a>
+        <div class="pending-h" id="pending-msg">Kamu masih punya tagihan yang belum dibayar untuk paket ini.</div>
+        <div class="pending-email-note">
+          <span>📧</span>
+          <span>Cek email kamu (termasuk folder spam) untuk link pembayaran yang sudah dikirim sebelumnya.</span>
+        </div>
+        <div class="pending-actions">
+          <a href="#" class="btn-continue" id="btn-continue" target="_blank" style="flex:1;text-align:center;background:#22c55e;color:#052e10;padding:.75rem 1rem;border-radius:100px;font-size:.84rem;font-weight:700;text-decoration:none;display:block">Lanjutkan Pembayaran →</a>
+          <button onclick="document.getElementById('pending-alert').style.display='none'" style="background:#0d1e10;border:1px solid #2a4a30;color:#6b8a70;border-radius:100px;padding:.75rem 1rem;font-size:.84rem;cursor:pointer;font-family:inherit;white-space:nowrap">✕ Tutup</button>
+        </div>
       </div>
       <button class="submit-btn" id="sbtn" onclick="submit()">Lanjut ke Pembayaran →</button>
       <div class="form-note">🔒 Pembayaran aman via Mayar · Spreadsheet aktif dalam &lt;5 menit</div>
