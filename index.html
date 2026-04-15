@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nayyira AI — Catat Keuangan Cukup Lewat WhatsApp</title>
+<meta name="description" content="AI pencatat keuangan via WhatsApp. Kirim teks, voice note, atau foto struk — langsung masuk spreadsheet otomatis. Mulai Rp 99.000.">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --g:#1a6b3a;--gm:#22c55e;--gl:#dcfce7;--gd:#0f3d22;
+  --dark:#080f0a;--dark2:#0d1a10;--dark3:#111f14;
+  --cream:#f7f3ec;--cream2:#ede8df;--cream3:#e4ddd2;
+  --text:#1a2a1f;--mu:#6b7c6f;--warm:#f2ede4;
+  --card:#ffffff;--border:#e2dbd0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;position:sticky;top:0;z-index:100;background:rgba(247,243,236,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--cream2)}
+.logo{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--g);display:flex;align-items:center;gap:9px;text-decoration:none}
+.logo-dot{width:9px;height:9px;border-radius:50%;background:var(--gm);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.nav-links{display:flex;align-items:center;gap:1.8rem}
+.nav-link{font-size:.84rem;color:var(--mu);text-decoration:none;transition:.2s;font-weight:500}
+.nav-link:hover{color:var(--g)}
+.nav-cta{background:var(--g);color:#fff;padding:.55rem 1.5rem;border-radius:100px;font-size:.84rem;font-weight:600;text-decoration:none;transition:.2s}
+.nav-cta:hover{background:#154f2a;box-shadow:0 4px 16px rgba(26,107,58,.3)}
+@media(max-width:680px){.nav-links .nav-link{display:none}}
+
+/* HERO */
+.hero{padding:5rem 2.5rem 4rem;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+@media(max-width:820px){.hero{grid-template-columns:1fr;gap:3rem;padding:3.5rem 1.5rem 3rem}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--gl);color:#15803d;padding:5px 14px;border-radius:100px;font-size:.74rem;font-weight:600;width:fit-content;margin-bottom:1.2rem;border:1px solid #bbf7d0}
+.tag-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite}
+h1{font-family:'Instrument Serif',serif;font-size:clamp(2.8rem,4.5vw,4.2rem);line-height:1.05;color:var(--dark);margin-bottom:1.3rem}
+h1 em{font-style:italic;color:var(--g)}
+.hero-sub{font-size:1.02rem;color:var(--mu);line-height:1.85;margin-bottom:2rem;max-width:460px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1.8rem}
+.btn-p{background:var(--g);color:#fff;padding:.9rem 2rem;border-radius:100px;font-size:.92rem;font-weight:600;text-decoration:none;transition:.2s;display:inline-block}
+.btn-p:hover{background:#154f2a;transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,107,58,.3)}
+.btn-s{border:1.5px solid var(--cream3);color:var(--text);padding:.9rem 2rem;border-radius:100px;font-size:.92rem;font-weight:500;display:inline-block;text-decoration:none;transition:.2s}
+.btn-s:hover{border-color:var(--g);color:var(--g)}
+.hero-proof{display:flex;align-items:center;gap:12px}
+.proof-avs{display:flex}
+.proof-av{width:30px;height:30px;border-radius:50%;background:var(--gl);border:2.5px solid var(--cream);display:flex;align-items:center;justify-content:center;font-size:.7rem;margin-left:-7px;font-size:.8rem}
+.proof-av:first-child{margin-left:0}
+.proof-txt{font-size:.78rem;color:var(--mu)}
+.proof-txt strong{color:var(--text)}
+
+/* PHONE */
+.phone-wrap{display:flex;justify-content:center}
+.phone{width:285px;background:#0a1209;border-radius:36px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.25),0 0 0 1.5px #1a2e1d;position:relative}
+.ph-notch{width:80px;height:24px;background:#0a1209;border-radius:0 0 16px 16px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2}
+.ph-bar{background:#0d1810;padding:32px 14px 10px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1c3021}
+.ph-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.ph-info{flex:1}
+.ph-name{color:#e8f5ec;font-size:.83rem;font-weight:600}
+.ph-status{color:#4ade80;font-size:.63rem;margin-top:1px}
+.chat-body{padding:10px;display:flex;flex-direction:column;gap:5px;background:#060e07;min-height:400px}
+.date-chip{align-self:center;background:#0d1f10;color:#3a5c40;font-size:.6rem;padding:3px 12px;border-radius:100px;margin:6px 0}
+.bbl-me{align-self:flex-end;background:#1b4d2b;color:#c8ecd4;border-radius:14px;border-bottom-right-radius:3px;padding:8px 11px;font-size:.72rem;line-height:1.55;max-width:84%}
+.bbl-ai{align-self:flex-start;background:#111d13;color:#a5cfb0;border-radius:14px;border-bottom-left-radius:3px;padding:8px 11px;font-size:.72rem;line-height:1.6;max-width:90%;border:1px solid #1c3021}
+.bbl-ai b,.bbl-ai strong{color:#4ade80}
+.ts{font-size:.56rem;color:#243d28;margin-top:1px;padding:0 3px}
+.ts-r{align-self:flex-end}.ts-l{align-self:flex-start}
+.vn-bbl{align-self:flex-end;background:#1b4d2b;border-radius:14px;border-bottom-right-radius:3px;padding:8px 11px;display:flex;align-items:center;gap:8px;max-width:84%}
+.vn-play{width:26px;height:26px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#fff;flex-shrink:0}
+.vn-wave{display:flex;gap:2px;align-items:center;flex:1}
+.vn-wave span{display:block;width:2.5px;border-radius:2px;background:#4ade80;animation:wave .8s ease-in-out infinite}
+.vn-wave span:nth-child(2){height:9px;animation-delay:.06s}.vn-wave span:nth-child(1){height:4px}.vn-wave span:nth-child(3){height:6px;animation-delay:.12s}.vn-wave span:nth-child(4){height:14px;animation-delay:.09s}.vn-wave span:nth-child(5){height:8px;animation-delay:.03s}.vn-wave span:nth-child(6){height:11px;animation-delay:.15s}.vn-wave span:nth-child(7){height:5px;animation-delay:.07s}.vn-wave span:nth-child(8){height:9px;animation-delay:.11s}
+@keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.2)}}
+.vn-dur{font-size:.62rem;color:#5d8a6a}
+.img-bbl{align-self:flex-end;background:#1b4d2b;border-radius:14px;border-bottom-right-radius:3px;overflow:hidden;max-width:84%}
+.img-mock{width:165px;height:95px;background:linear-gradient(135deg,#0d2a14,#081507);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.img-icon{font-size:1.8rem;opacity:.8}
+.img-cap{padding:5px 9px;font-size:.65rem;color:#6a9975}
+.typing{align-self:flex-start;background:#111d13;border:1px solid #1c3021;border-radius:14px;border-bottom-left-radius:3px;padding:9px 13px;display:flex;gap:4px;align-items:center}
+.typing span{width:5px;height:5px;border-radius:50%;background:#4ade80;animation:tdot 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,60%,100%{transform:translateY(0);opacity:.3}30%{transform:translateY(-5px);opacity:1}}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;padding:1.2rem 0;background:var(--warm);border-top:1px solid var(--cream2);border-bottom:1px solid var(--cream2);position:relative}
+.marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
+.marquee-wrap::before{left:0;background:linear-gradient(to right,var(--warm),transparent)}
+.marquee-wrap::after{right:0;background:linear-gradient(to left,var(--warm),transparent)}
+.marquee-track{display:flex;gap:10px;animation:marquee 30s linear infinite;width:max-content}
+.tech-pill{background:#fff;border:1px solid var(--cream2);border-radius:100px;padding:6px 16px;font-size:.77rem;color:var(--mu);white-space:nowrap;display:flex;align-items:center;gap:7px;font-weight:500}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* PROBLEM */
+.prob-sec{padding:6rem 2.5rem;max-width:1100px;margin:0 auto}
+.eyebrow{font-size:.72rem;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.7rem}
+.sec-h{font-family:'Instrument Serif',serif;font-size:clamp(2rem,3.5vw,3rem);line-height:1.15;color:var(--dark);margin-bottom:1rem}
+.sec-p{color:var(--mu);font-size:.95rem;line-height:1.85;max-width:530px}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+@media(max-width:680px){.prob-grid{grid-template-columns:1fr}}
+.prob-card{background:#fff;border-radius:20px;padding:1.8rem;border:1px solid var(--border);position:relative;overflow:hidden}
+.prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f97316,#ef4444)}
+.prob-icon{font-size:2rem;margin-bottom:1rem}
+.prob-card h3{font-size:.95rem;font-weight:600;color:var(--dark);margin-bottom:.5rem}
+.prob-card p{font-size:.82rem;color:var(--mu);line-height:1.7}
+
+/* DEMO SECTION */
+.demo-sec{background:var(--dark);padding:6rem 2.5rem}
+.demo-inner{max-width:1100px;margin:0 auto}
+.demo-h{font-family:'Instrument Serif',serif;font-size:clamp(2rem,3vw,2.8rem);color:#fff;margin-bottom:.6rem}
+.demo-sub{color:#6b8a70;font-size:.95rem;margin-bottom:3rem;max-width:540px}
+.demo-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2rem}
+.demo-tab{background:#0d1e10;border:1.5px solid #1e3024;color:#6b8a70;border-radius:100px;padding:.5rem 1.2rem;font-size:.8rem;cursor:pointer;transition:.2s;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500}
+.demo-tab.on{background:#1a4d27;border-color:#22c55e;color:#4ade80}
+.demo-panels{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+@media(max-width:780px){.demo-panels{grid-template-columns:1fr}}
+.demo-panel{display:none}
+.demo-panel.on{display:block}
+.demo-phone-sm{background:#0a1209;border-radius:28px;overflow:hidden;border:1px solid #1c3021;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.demo-ph-bar{background:#0d1810;padding:12px 14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid #1c3021}
+.demo-chat{padding:10px;display:flex;flex-direction:column;gap:5px;background:#060e07;min-height:280px}
+.demo-desc{color:#fff}
+.demo-desc h3{font-size:1.1rem;font-weight:600;margin-bottom:.6rem;color:#fff}
+.demo-desc p{font-size:.87rem;color:#8aab90;line-height:1.75;margin-bottom:1.2rem}
+.demo-points{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.demo-points li{font-size:.84rem;color:#6b8a70;display:flex;gap:10px;align-items:flex-start}
+.demo-points li::before{content:"✓";color:#22c55e;font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* SPREADSHEET */
+.sheet-sec{padding:6rem 2.5rem;max-width:1200px;margin:0 auto}
+.sheet-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:4rem;align-items:start}
+@media(max-width:820px){.sheet-grid{grid-template-columns:1fr}}
+.sheet-card{background:#fff;border-radius:24px;border:1px solid var(--border);overflow:hidden;box-shadow:0 12px 60px rgba(0,0,0,.07)}
+.sheet-topbar{background:#f1f5f9;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0}
+.win-btns{display:flex;gap:5px}
+.win-btn{width:10px;height:10px;border-radius:50%}
+.win-btn:nth-child(1){background:#ff5f57}
+.win-btn:nth-child(2){background:#febc2e}
+.win-btn:nth-child(3){background:#28c840}
+.sheet-url{background:#fff;border:1px solid #e2e8f0;border-radius:6px;padding:3px 10px;font-size:.66rem;color:#64748b;flex:1;font-family:monospace}
+.sheet-tabs-row{background:#f8f9fa;padding:0 12px;display:flex;gap:0;border-bottom:1px solid #e2e8f0;overflow-x:auto}
+.sh-tab{padding:8px 16px;font-size:.7rem;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;font-weight:500;transition:.15s}
+.sh-tab.on{color:var(--g);border-bottom-color:var(--g);background:#fff}
+.sheet-content{padding:0}
+
+/* Dashboard tab */
+.dash-content{padding:1rem}
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.dash-title{font-size:.78rem;font-weight:700;color:#1e293b}
+.dash-period{font-size:.65rem;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:3px 10px;color:#64748b}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:1rem}
+.kpi{background:#f8f9fa;border:1px solid #e2e8f0;border-radius:10px;padding:.7rem .8rem}
+.kpi-l{font-size:.58rem;color:#94a3b8;margin-bottom:2px;font-weight:500}
+.kpi-v{font-size:.9rem;font-weight:700;color:#1e293b;font-family:'Instrument Serif',serif}
+.kpi-badge{font-size:.58rem;padding:2px 6px;border-radius:100px;margin-top:3px;display:inline-block;font-weight:600}
+.up{background:#dcfce7;color:#16a34a}.dn{background:#fee2e2;color:#dc2626}
+.section-label{font-size:.65rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
+/* Bar chart */
+.bar-chart{display:flex;align-items:flex-end;gap:4px;height:70px;margin-bottom:.4rem}
+.bar-group{display:flex;gap:2px;align-items:flex-end;flex:1}
+.bar{border-radius:3px 3px 0 0;min-width:8px;transition:.3s}
+.bar.income{background:#22c55e}
+.bar.expense{background:#f97316}
+.bar-labels{display:flex;gap:4px;margin-bottom:.8rem}
+.bar-lbl{font-size:.56rem;color:#94a3b8;flex:1;text-align:center}
+/* Donut */
+.budget-row{display:flex;gap:8px;margin-bottom:.8rem}
+.donut-wrap{position:relative;width:70px;height:70px;flex-shrink:0}
+.donut-svg{transform:rotate(-90deg)}
+.donut-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.6rem;font-weight:700;color:#1e293b;text-align:center;line-height:1.2}
+.budget-items{display:flex;flex-direction:column;gap:5px;flex:1}
+.bud-item{display:flex;align-items:center;gap:6px}
+.bud-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.bud-name{font-size:.62rem;color:#475569;flex:1}
+.bud-pct{font-size:.62rem;font-weight:600;color:#1e293b}
+.bud-bar-bg{height:4px;background:#f1f5f9;border-radius:2px;flex:1}
+.bud-bar-fill{height:100%;border-radius:2px}
+
+/* Transaksi tab */
+.trx-table{width:100%;border-collapse:collapse}
+.trx-header-row{display:grid;grid-template-columns:70px 1fr 80px 70px 80px;gap:4px;padding:6px 12px;background:#f8f9fa;border-bottom:1px solid #e2e8f0}
+.trx-col-h{font-size:.6rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em}
+.trx-row{display:grid;grid-template-columns:70px 1fr 80px 70px 80px;gap:4px;padding:7px 12px;border-bottom:1px solid #f1f5f9;align-items:center}
+.trx-row:hover{background:#f8f9fa}
+.trx-date{font-size:.64rem;color:#64748b}
+.trx-desc{font-size:.67rem;color:#1e293b;font-weight:500}
+.trx-cat{font-size:.6rem;color:#64748b}
+.trx-jenis{font-size:.6rem;padding:2px 7px;border-radius:100px;text-align:center;font-weight:600}
+.jenis-out{background:#fff7ed;color:#c2410c}
+.jenis-in{background:#f0fdf4;color:#15803d}
+.trx-nominal{font-size:.67rem;font-weight:600;text-align:right}
+.nom-out{color:#dc2626}.nom-in{color:#16a34a}
+
+/* Kategori tab */
+.cat-content{padding:1rem}
+.cat-row{display:flex;align-items:center;gap:8px;margin-bottom:.7rem}
+.cat-rank{font-size:.6rem;color:#94a3b8;width:16px;text-align:center;font-weight:700}
+.cat-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.cat-name{font-size:.7rem;color:#1e293b;font-weight:600;flex:1}
+.cat-bar-bg{flex:2;height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden}
+.cat-bar-fill{height:100%;border-radius:3px;transition:.3s}
+.cat-amt{font-size:.68rem;font-weight:700;color:#1e293b;min-width:60px;text-align:right}
+.cat-pct{font-size:.6rem;color:#94a3b8;min-width:32px;text-align:right}
+
+/* AI CHAT VIA WA */
+.chat-sec{background:var(--dark2);padding:6rem 2.5rem}
+.chat-inner{max-width:1100px;margin:0 auto}
+.chat-scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+@media(max-width:820px){.chat-scenarios{grid-template-columns:1fr;max-width:480px}}
+.scenario-card{background:#0d1e10;border:1px solid #1e3024;border-radius:20px;padding:1.5rem;transition:.2s}
+.scenario-card:hover{border-color:#2d5a38}
+.sc-icon{font-size:1.5rem;margin-bottom:.8rem}
+.sc-title{font-size:.9rem;font-weight:600;color:#e8f5ec;margin-bottom:.4rem}
+.sc-desc{font-size:.78rem;color:#6b8a70;line-height:1.65;margin-bottom:1rem}
+.sc-examples{display:flex;flex-direction:column;gap:4px}
+.sc-chip{background:#091510;border:1px solid #1a3020;border-radius:8px;padding:4px 10px;font-size:.68rem;color:#4ade80;font-family:monospace;display:block}
+
+/* PASANGAN SECTION */
+.pasangan-sec{padding:6rem 2.5rem;background:var(--warm);border-top:1px solid var(--cream2);border-bottom:1px solid var(--cream2)}
+.pasangan-inner{max-width:1100px;margin:0 auto}
+.pasangan-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-top:3rem}
+@media(max-width:820px){.pasangan-grid{grid-template-columns:1fr;gap:3rem}}
+.pasangan-phones{display:flex;gap:-20px;justify-content:center;position:relative}
+.pas-phone{width:210px;background:#0a1209;border-radius:28px;overflow:hidden;border:1.5px solid #1c3021;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.pas-phone:last-child{margin-left:-40px;margin-top:30px}
+.pas-ph-bar{background:#0d1810;padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #1c3021}
+.pas-ph-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.pas-chat{padding:8px;display:flex;flex-direction:column;gap:4px;background:#060e07;min-height:220px}
+.pas-bbl-me{align-self:flex-end;background:#1b4d2b;color:#c8ecd4;border-radius:12px;border-bottom-right-radius:3px;padding:6px 9px;font-size:.65rem;line-height:1.5;max-width:86%}
+.pas-bbl-ai{align-self:flex-start;background:#111d13;color:#a5cfb0;border-radius:12px;border-bottom-left-radius:3px;padding:6px 9px;font-size:.65rem;line-height:1.55;max-width:90%;border:1px solid #1c3021}
+.pas-bbl-ai b{color:#4ade80}
+.pas-date{align-self:center;background:#0d1f10;color:#3a5c40;font-size:.55rem;padding:2px 10px;border-radius:100px;margin:4px 0}
+.pas-ts{font-size:.52rem;color:#243d28;padding:0 3px}
+.pas-ts-r{align-self:flex-end}.pas-ts-l{align-self:flex-start}
+.pasangan-desc h3{font-family:'Instrument Serif',serif;font-size:1.9rem;color:var(--dark);margin-bottom:.8rem;line-height:1.2}
+.pasangan-desc p{font-size:.9rem;color:var(--mu);line-height:1.8;margin-bottom:1.2rem}
+.pasangan-feats{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.5rem}
+.pasangan-feats li{display:flex;gap:10px;font-size:.85rem;color:var(--text)}
+.pasangan-feats li::before{content:"💚";flex-shrink:0}
+.pas-badge{display:inline-flex;align-items:center;gap:7px;background:var(--gl);border:1px solid #bbf7d0;color:#15803d;padding:6px 14px;border-radius:100px;font-size:.76rem;font-weight:600}
+
+/* COMPARISON */
+.comp-sec{padding:6rem 2.5rem;max-width:1000px;margin:0 auto}
+.comp-table{width:100%;border-collapse:collapse;margin-top:2.5rem;background:#fff;border-radius:20px;overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,.04)}
+.comp-table th{padding:1rem 1.3rem;font-size:.76rem;font-weight:600;color:var(--mu);text-align:left;background:var(--warm);border-bottom:1px solid var(--border)}
+.comp-table th:not(:first-child){text-align:center}
+.comp-table th.hl{background:var(--g);color:#fff;text-align:center}
+.comp-table td{padding:.85rem 1.3rem;font-size:.83rem;color:var(--text);border-bottom:1px solid var(--cream2)}
+.comp-table td:not(:first-child){text-align:center}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table td.hl{background:#f0fdf4;font-weight:600;color:var(--g)}
+.yes{color:#16a34a;font-size:1.1rem}.no{color:#dc2626;font-size:1.1rem}.na{color:var(--mu);font-size:.76rem}
+
+/* TESTIMONIALS */
+.testi-sec{padding:6rem 2.5rem;background:var(--dark);position:relative;overflow:hidden}
+.testi-sec::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(34,197,94,.06) 0%,transparent 70%);pointer-events:none}
+.testi-inner{max-width:1100px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+@media(max-width:780px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{background:#0d1e10;border:1px solid #1e3024;border-radius:20px;padding:1.8rem;position:relative}
+.testi-quote{font-size:2rem;color:#1a3a1e;line-height:1;margin-bottom:.8rem}
+.testi-stars{color:#f59e0b;font-size:.82rem;letter-spacing:2px;margin-bottom:.9rem}
+.testi-text{font-size:.85rem;color:#8aab90;line-height:1.75;margin-bottom:1.2rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-av{width:36px;height:36px;border-radius:50%;background:#1a3a1e;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.testi-name{font-size:.83rem;font-weight:600;color:#c8e6d0}
+.testi-role{font-size:.72rem;color:#4a6a50}
+
+/* PRICING */
+.pricing-sec{background:var(--dark2);padding:6rem 2.5rem}
+.pricing-inner{max-width:1000px;margin:0 auto}
+.pricing-h{font-family:'Instrument Serif',serif;font-size:clamp(2rem,3vw,2.8rem);color:#fff;margin-bottom:.6rem}
+.pricing-sub{color:#6b8a70;font-size:.93rem;margin-bottom:3rem}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+@media(max-width:820px){.plans{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.plans{grid-template-columns:1fr}}
+.plan{background:#0d1e10;border:1.5px solid #1e3024;border-radius:22px;padding:1.6rem;position:relative;transition:.25s;cursor:pointer}
+.plan:hover{border-color:#2d5a38;transform:translateY(-3px)}
+.plan.pop{border-color:#22c55e;background:#091510}
+.pop-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#22c55e;color:#052e10;font-size:.67rem;padding:3px 14px;border-radius:100px;white-space:nowrap;font-weight:700}
+.plan-icon{font-size:1.4rem;margin-bottom:.7rem}
+.plan-name{font-size:.74rem;color:#6b8a70;margin-bottom:.3rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.plan.pop .plan-name{color:#4ade80}
+.plan-price{font-family:'Instrument Serif',serif;font-size:1.9rem;color:#fff;margin-bottom:.2rem}
+.plan-price small{font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;color:#6b8a70}
+.plan-note{font-size:.72rem;color:#4a6a50;margin-bottom:1.2rem;line-height:1.5}
+.plan-feats{list-style:none;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:5px}
+.plan-feats li{font-size:.77rem;color:#8aab90;display:flex;gap:7px;line-height:1.5}
+.plan-feats li::before{content:"✓";color:#22c55e;font-weight:700;flex-shrink:0}
+.plan-btn{width:100%;padding:.72rem;border-radius:100px;font-size:.85rem;font-weight:600;cursor:pointer;border:1.5px solid #22c55e;color:#22c55e;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;transition:.2s}
+.plan-btn:hover,.plan.pop .plan-btn{background:#22c55e;color:#052e10}
+
+/* FAQ */
+.faq-sec{padding:6rem 2.5rem;max-width:780px;margin:0 auto}
+.faq-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:.7rem}
+.faq-item{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.faq-q{width:100%;text-align:left;padding:1.15rem 1.4rem;font-size:.88rem;font-weight:500;color:var(--dark);background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:'Plus Jakarta Sans',sans-serif;transition:.2s}
+.faq-q:hover{color:var(--g)}
+.faq-icon{font-size:1.1rem;color:var(--mu);flex-shrink:0;transition:.3s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;font-size:.83rem;color:var(--mu);line-height:1.8;padding:0 1.4rem}
+.faq-item.open .faq-a{max-height:250px;padding:.2rem 1.4rem 1.2rem}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--g)}
+
+/* FORM */
+.form-sec{background:var(--dark);padding:6rem 2.5rem}
+.form-inner{max-width:580px;margin:0 auto}
+.form-h{font-family:'Instrument Serif',serif;font-size:clamp(1.9rem,3vw,2.5rem);color:#fff;margin-bottom:.6rem}
+.form-p{color:#6b8a70;font-size:.9rem;margin-bottom:2rem;line-height:1.75}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:1rem}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:500px){.fg2{grid-template-columns:1fr}}
+label{font-size:.73rem;color:#6b8a70;font-weight:600;letter-spacing:.03em}
+input,select{background:#0e1a10;border:1.5px solid #1e3024;border-radius:10px;padding:.72rem 1rem;color:#e8f5ec;font-size:.88rem;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:.2s;width:100%}
+input:focus,select:focus{border-color:#22c55e}
+input::placeholder{color:#2a4030}
+select option{background:#0e1a10;color:#e8f5ec}
+.ref-row{display:flex;gap:8px}
+.ref-row input{flex:1}
+.ref-btn{background:#22c55e;color:#052e10;border:none;border-radius:100px;padding:.72rem 1.2rem;font-size:.8rem;cursor:pointer;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;transition:.2s;flex-shrink:0}
+.ref-btn:hover{background:#16a34a}
+.ref-btn:disabled{background:#1e3024;color:#3d5c42;cursor:not-allowed}
+.ref-feedback{font-size:.76rem;padding:7px 12px;border-radius:8px;margin-top:6px;display:none}
+.ref-feedback.ok{background:#0a2e14;border:1px solid #1a4a28;color:#4ade80;display:block}
+.ref-feedback.err{background:#1f0a0a;border:1px solid #4a1a1a;color:#f87171;display:block}
+.pks{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1rem}
+@media(max-width:420px){.pks{grid-template-columns:1fr}}
+.pk{background:#0e1a10;border:1.5px solid #1e3024;border-radius:14px;padding:.9rem;cursor:pointer;text-align:center;transition:.2s;position:relative}
+.pk.sel{border-color:#22c55e;background:#091510;box-shadow:0 0 0 2px rgba(34,197,94,.2)}
+.pk-badge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#22c55e;color:#052e10;font-size:.58rem;padding:2px 10px;border-radius:100px;font-weight:700;white-space:nowrap}
+.pk-n{font-size:.67rem;color:#6b8a70;margin-bottom:3px;font-weight:600}
+.pk-p{font-family:'Instrument Serif',serif;font-size:1.25rem;color:#fff}
+.pk-p small{font-family:'Plus Jakarta Sans',sans-serif;font-size:.62rem;color:#6b8a70}
+.pk-note{font-size:.61rem;color:#22c55e;margin-top:3px}
+.total-row{background:#0e1a10;border:1px solid #1e3024;border-radius:12px;padding:.9rem 1.1rem;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem}
+.total-l{font-size:.83rem;color:#6b8a70}
+.total-v{font-family:'Instrument Serif',serif;font-size:1.65rem;color:#fff}
+.ori{font-size:.75rem;color:#2a4030;text-decoration:line-through;margin-left:8px}
+.submit-btn{width:100%;background:#22c55e;color:#052e10;border:none;border-radius:100px;padding:.95rem;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.2s}
+.submit-btn:hover{background:#16a34a;transform:translateY(-1px);box-shadow:0 10px 30px rgba(34,197,94,.3)}
+.submit-btn:disabled{background:#1e3024;color:#3d5c42;cursor:not-allowed;transform:none;box-shadow:none}
+.form-note{font-size:.72rem;color:#3d5c42;text-align:center;margin-top:.8rem}
+.form-trust{display:flex;justify-content:center;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.form-trust span{font-size:.76rem;color:#4a6a50;display:flex;align-items:center;gap:5px}
+.form-trust .ti{color:#22c55e}
+
+footer{text-align:center;padding:2rem 1.5rem;font-size:.76rem;color:var(--mu);border-top:1px solid var(--cream2);background:var(--cream)}
+footer a{color:var(--g);text-decoration:none}
+
+/* ===== MOBILE FIXES ===== */
+@media(max-width:768px){
+  *{max-width:100%}
+  body{overflow-x:hidden}
+  
+  nav{padding:.9rem 1.2rem}
+  
+  .hero{padding:3rem 1.2rem 2.5rem;gap:2.5rem}
+  h1{font-size:2.4rem}
+  .hero-sub{font-size:.93rem}
+  .hero-btns{flex-direction:column;gap:10px}
+  .btn-p,.btn-s{text-align:center;width:100%;padding:.85rem 1.5rem}
+  
+  .phone{width:100%;max-width:300px;margin:0 auto}
+  
+  .marquee-wrap{padding:1rem 0}
+  
+  .prob-sec{padding:4rem 1.2rem}
+  .prob-grid{grid-template-columns:1fr;gap:.8rem}
+  
+  .demo-sec{padding:4rem 1.2rem}
+  .demo-tabs{gap:6px}
+  .demo-tab{font-size:.75rem;padding:.45rem .9rem}
+  .demo-panels{grid-template-columns:1fr!important;gap:2rem}
+  .demo-phone-sm{max-width:100%}
+  
+  .sheet-sec{padding:4rem 1.2rem}
+  .sheet-grid{grid-template-columns:1fr;gap:2.5rem}
+  .sheet-card{overflow-x:auto}
+  .kpi-row{grid-template-columns:1fr 1fr;gap:5px}
+  .kpi-v{font-size:.78rem}
+  .bar-chart{height:55px}
+  .trx-header-row,.trx-row{grid-template-columns:60px 1fr 70px 55px 70px;font-size:.6rem;gap:3px;padding:6px 8px}
+  .cat-row{gap:5px}
+  .cat-bar-bg{display:none}
+  
+  .pasangan-sec{padding:4rem 1.2rem}
+  .pasangan-grid{grid-template-columns:1fr;gap:2rem}
+  .pasangan-phones{justify-content:center}
+  .pas-phone{width:100%;max-width:260px}
+  .pasangan-phones{flex-direction:column;align-items:center;gap:12px}
+  .pas-phone:last-child{margin-left:0!important;margin-top:0!important}
+  .pas-phone{max-width:280px;width:100%}
+  .pasangan-desc h3{font-size:1.6rem}
+  
+  .comp-sec{padding:4rem 1.2rem}
+  .comp-table{font-size:.75rem;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .comp-table th,.comp-table td{padding:.7rem .8rem;white-space:nowrap}
+  
+  .testi-sec{padding:4rem 1.2rem}
+  .testi-grid{grid-template-columns:1fr}
+  
+  .pricing-sec{padding:4rem 1.2rem}
+  .plans{grid-template-columns:1fr 1fr!important}
+  .plan{padding:1.3rem}
+  .plan-price{font-size:1.6rem}
+  
+  .faq-sec{padding:4rem 1.2rem}
+  .faq-q{font-size:.84rem;padding:1rem 1.1rem}
+  
+  .form-sec{padding:4rem 1.2rem}
+  .fg2{grid-template-columns:1fr}
+  .pks{grid-template-columns:1fr 1fr}
+  
+  .chat-scenarios{grid-template-columns:1fr}
+  
+  .sec-h{font-size:1.8rem}
+  .demo-h,.pricing-h{font-size:1.8rem}
+}
+
+@media(max-width:420px){
+  .plans{grid-template-columns:1fr!important}
+  .pks{grid-template-columns:1fr!important}
+  .kpi-row{grid-template-columns:1fr 1fr}
+  h1{font-size:2rem}
+  .trx-header-row,.trx-row{grid-template-columns:55px 1fr 60px 50px 65px;padding:5px 6px}
+}
+
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo"><span class="logo-dot"></span>Nayyira AI</a>
+  <div class="nav-links">
+    <a href="#demo" class="nav-link">Demo</a>
+    <a href="#spreadsheet" class="nav-link">Spreadsheet</a>
+    <a href="#harga" class="nav-link">Harga</a>
+    <a href="#daftar" class="nav-cta">Mulai sekarang</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-tag"><span class="tag-dot"></span>AI Aktif 24 jam · Bahasa Indonesia</div>
+    <h1>Catat keuangan<br>cukup chat<br><em>WhatsApp.</em></h1>
+    <p class="hero-sub">Kirim teks, kirim voice note, atau foto struk belanja — Nayyira AI langsung catat ke spreadsheet pribadimu secara otomatis. Tidak perlu install apapun.</p>
+    <div class="hero-btns">
+      <a href="#daftar" class="btn-p">Coba sekarang — Mulai Rp 99rb</a>
+      <a href="#demo" class="btn-s">Lihat cara kerjanya ↓</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-avs">
+        <div class="proof-av">👩</div><div class="proof-av">👨</div>
+        <div class="proof-av">👩</div><div class="proof-av">👨</div>
+      </div>
+      <div class="proof-txt">Sudah dipakai <strong>puluhan pengguna</strong> aktif</div>
+    </div>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="ph-notch"></div>
+      <div class="ph-bar">
+        <div class="ph-av">🤖</div>
+        <div class="ph-info">
+          <div class="ph-name">Nayyira AI</div>
+          <div class="ph-status">● online</div>
+        </div>
+        <div style="margin-left:auto;color:#3a5c40;font-size:1rem">⋮</div>
+      </div>
+      <div class="chat-body">
+        <div class="date-chip">Hari ini</div>
+        <div class="bbl-me">beli kopi 25rb</div>
+        <div class="ts ts-r">08:42</div>
+        <div class="bbl-ai">✅ Dicatat!<br><b>Kopi</b> · Minuman/jajan<br><b>Rp 25.000</b> · 15 Apr 2026</div>
+        <div class="ts ts-l">08:42</div>
+        <div class="vn-bbl">
+          <div class="vn-play">▶</div>
+          <div class="vn-wave"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <span class="vn-dur">0:05</span>
+        </div>
+        <div class="ts ts-r">12:15</div>
+        <div class="bbl-ai">🎤 <i>"bayar listrik dua ratus ribu"</i><br><br>✅ Dicatat!<br><b>Listrik</b> · Tagihan rumah<br><b>Rp 200.000</b> · 15 Apr 2026</div>
+        <div class="ts ts-l">12:15</div>
+        <div class="img-bbl">
+          <div class="img-mock"><div class="img-icon">🧾</div><div style="font-size:.58rem;color:#4ade80;opacity:.7">struk_alfamart.jpg</div></div>
+          <div class="img-cap">Struk tadi siang</div>
+        </div>
+        <div class="ts ts-r">14:30</div>
+        <div class="typing"><span></span><span></span><span></span></div>
+        <div class="bbl-ai">🧾 Struk terbaca!<br><b>3 item</b> · Total Rp 47.500<br>✅ Dicatat sebagai belanja harian</div>
+        <div class="ts ts-l">14:31</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="tech-pill"><span>🤖</span>Google Gemini — memahami bahasa natural</div>
+    <div class="tech-pill"><span>🎤</span>OpenAI Whisper — transkripsi voice note</div>
+    <div class="tech-pill"><span>🧾</span>LlamaIndex OCR — baca foto struk</div>
+    <div class="tech-pill"><span>📊</span>Google Sheets — tersimpan rapi & otomatis</div>
+    <div class="tech-pill"><span>⚡</span>n8n Automation — workflow tanpa kode</div>
+    <div class="tech-pill"><span>📱</span>WhatsApp — tanpa install apapun</div>
+    <div class="tech-pill"><span>🔒</span>Data di Google Drive milikmu sendiri</div>
+    <div class="tech-pill"><span>🤖</span>Google Gemini — memahami bahasa natural</div>
+    <div class="tech-pill"><span>🎤</span>OpenAI Whisper — transkripsi voice note</div>
+    <div class="tech-pill"><span>🧾</span>LlamaIndex OCR — baca foto struk</div>
+    <div class="tech-pill"><span>📊</span>Google Sheets — tersimpan rapi & otomatis</div>
+    <div class="tech-pill"><span>⚡</span>n8n Automation — workflow tanpa kode</div>
+    <div class="tech-pill"><span>📱</span>WhatsApp — tanpa install apapun</div>
+    <div class="tech-pill"><span>🔒</span>Data di Google Drive milikmu sendiri</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="prob-sec">
+  <div class="eyebrow">Masalah yang kita semua rasakan</div>
+  <div class="sec-h">Kenapa catatan keuangan<br>selalu gagal di tengah jalan?</div>
+  <p class="sec-p">Bukan karena kamu malas. Tapi karena caranya terlalu ribet untuk dilakukan konsisten setiap hari.</p>
+  <div class="prob-grid">
+    <div class="prob-card">
+      <div class="prob-icon">📱</div>
+      <h3>Harus buka aplikasi dulu</h3>
+      <p>Setiap mau catat, harus unlock HP, buka app, pilih kategori, isi nominal satu-satu. Ribet. Akhirnya skip dan lupa.</p>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">🧠</div>
+      <h3>Lupa kalau tidak langsung catat</h3>
+      <p>Bayar parkir Rp 5.000 pagi, sore sudah lupa. Transaksi kecil yang "tidak penting" inilah yang bikin keuangan bocor.</p>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">📊</div>
+      <h3>Sudah catat tapi tidak dianalisis</h3>
+      <p>Capek-capek catat tapi tidak pernah lihat grafiknya. Tidak tahu uang kamu habis ke mana setiap bulan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO SECTION -->
+<section class="demo-sec" id="demo">
+  <div class="demo-inner">
+    <div class="eyebrow" style="color:#4ade80">Lihat AI bekerja</div>
+    <div class="demo-h">Bukan sekadar catat —<br>AI yang benar-benar mengerti</div>
+    <div class="demo-sub">Tidak perlu format khusus. Tulis senatural biasa chat. AI memahami konteks, singkatan, bahkan koreksi transaksi yang salah.</div>
+    <div class="demo-tabs">
+      <button class="demo-tab on" onclick="switchDemo('teks',this)">💬 Catat teks</button>
+      <button class="demo-tab" onclick="switchDemo('voice',this)">🎤 Voice note</button>
+      <button class="demo-tab" onclick="switchDemo('struk',this)">🧾 Foto struk</button>
+      <button class="demo-tab" onclick="switchDemo('multi',this)">📋 Multi transaksi</button>
+      <button class="demo-tab" onclick="switchDemo('hapus',this)">🗑️ Hapus & edit</button>
+      <button class="demo-tab" onclick="switchDemo('laporan',this)">📊 Tanya laporan</button>
+    </div>
+
+    <!-- TEKS -->
+    <div class="demo-panels" id="demo-teks">
+      <div class="demo-phone-sm">
+        <div class="demo-ph-bar">
+          <div class="ph-av" style="width:28px;height:28px;font-size:.75rem">🤖</div>
+          <div style="margin-left:6px"><div class="ph-name" style="font-size:.78rem">Nayyira AI</div><div class="ph-status" style="font-size:.6rem">● online</div></div>
+        </div>
+        <div class="demo-chat">
+          <div class="date-chip">Hari ini</div>
+          <div class="bbl-me">beli bensin 50rb</div>
+          <div class="ts ts-r">07:30</div>
+          <div class="bbl-ai">✅ Dicatat!<br><b>Bensin</b> · Transportasi<br><b>Rp 50.000</b> · 15 Apr 2026</div>
+          <div class="ts ts-l">07:30</div>
+          <div class="bbl-me">makan siang 35ribu sm temen</div>
+          <div class="ts ts-r">12:00</div>
+          <div class="bbl-ai">✅ Dicatat!<br><b>Makan siang</b> · Makan di luar<br><b>Rp 35.000</b> · 15 Apr 2026</div>
+          <div class="ts ts-l">12:00</div>
+          <div class="bbl-me">transfer ke mama 500k</div>
+          <div class="ts ts-r">18:00</div>
+          <div class="bbl-ai">✅ Dicatat!<br><b>Transfer ke mama</b> · Keluarga<br><b>Rp 500.000</b> · 15 Apr 2026</div>
+          <div class="ts ts-l">18:00</div>
+        </div>
+      </div>
+      <div class="demo-desc">
+        <h3>Ketik seperti chat biasa — AI langsung mengerti</h3>
+        <p>Tidak perlu format khusus, tidak perlu tanda titik dua, tidak perlu pilih kategori. Tulis saja seperti biasa, AI yang kerjakan sisanya.</p>
+        <ul class="demo-points">
+          <li>Singkatan seperti "rb", "ribu", "k", "jt" langsung dimengerti</li>
+          <li>Kategori otomatis diisi berdasarkan konteks deskripsi</li>
+          <li>Tanggal otomatis pakai hari ini jika tidak disebutkan</li>
+          <li>Bisa sebut tanggal relatif: "kemarin", "tadi pagi", "senin lalu"</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- VOICE -->
+    <div class="demo-panels" id="demo-voice" style="display:none">
+      <div class="demo-phone-sm">
+        <div class="demo-ph-bar">
+          <div class="ph-av" style="width:28px;height:28px;font-size:.75rem">🤖</div>
+          <div style="margin-left:6px"><div class="ph-name" style="font-size:.78rem">Nayyira AI</div></div>
+        </div>
+        <div class="demo-chat">
+          <div class="date-chip">Hari ini</div>
+          <div class="vn-bbl"><div class="vn-play">▶</div><div class="vn-wave"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><span class="vn-dur">0:04</span></div>
+          <div class="ts ts-r">12:30</div>
+          <div class="bbl-ai">🎤 <i>"bayar listrik dua ratus ribu"</i><br><br>✅ Dicatat!<br><b>Listrik</b> · Tagihan rumah<br><b>Rp 200.000</b></div>
+          <div class="ts ts-l">12:30</div>
+          <div class="vn-bbl"><div class="vn-play">▶</div><div class="vn-wave"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><span class="vn-dur">0:07</span></div>
+          <div class="ts ts-r">15:00</div>
+          <div class="bbl-ai">🎤 <i>"beli sayur sama lauk di pasar, habis tiga puluh lima ribu"</i><br><br>✅ Dicatat!<br><b>Belanja pasar</b> · Belanja harian<br><b>Rp 35.000</b></div>
+          <div class="ts ts-l">15:00</div>
+        </div>
+      </div>
+      <div class="demo-desc">
+        <h3>Rekam suara — tangan tetap bebas</h3>
+        <p>Lagi nyetir, masak, atau tangan penuh? Cukup tekan tombol rekam di WhatsApp, ngomong sebentar, kirim. AI transkripsi dan catat otomatis.</p>
+        <ul class="demo-points">
+          <li>Transkripsi akurat menggunakan OpenAI Whisper</li>
+          <li>Mengerti bahasa Indonesia sehari-hari termasuk dialek</li>
+          <li>Bisa sebut jumlah dengan kata: "dua ratus ribu", "lima puluh rb"</li>
+          <li>Cocok untuk situasi di mana mengetik tidak praktis</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STRUK -->
+    <div class="demo-panels" id="demo-struk" style="display:none">
+      <div class="demo-phone-sm">
+        <div class="demo-ph-bar">
+          <div class="ph-av" style="width:28px;height:28px;font-size:.75rem">🤖</div>
+          <div style="margin-left:6px"><div class="ph-name" style="font-size:.78rem">Nayyira AI</div></div>
+        </div>
+        <div class="demo-chat">
+          <div class="date-chip">Hari ini</div>
+          <div class="img-bbl"><div class="img-mock"><div class="img-icon">🧾</div><div style="font-size:.55rem;color:#4ade80;opacity:.7">struk_indomaret.jpg</div></div><div class="img-cap">struk tadi</div></div>
+          <div class="ts ts-r">17:45</div>
+          <div class="typing"><span></span><span></span><span></span></div>
+          <div class="bbl-ai">🧾 Struk terbaca!<br><br>• Mie goreng instant × 3 — Rp 7.500<br>• Sabun mandi — Rp 8.000<br>• Teh kotak × 2 — Rp 6.000<br>• Snack — Rp 12.000<br><br><b>Total: Rp 33.500</b><br>✅ Dicatat sebagai belanja harian</div>
+          <div class="ts ts-l">17:46</div>
+        </div>
+      </div>
+      <div class="demo-desc">
+        <h3>Foto struk — semua item terbaca otomatis</h3>
+        <p>Tidak perlu ketik satu-satu. Foto struk Indomaret, Alfamart, nota warung, kwitansi apapun — AI baca semua item dan langsung catat totalnya.</p>
+        <ul class="demo-points">
+          <li>OCR menggunakan LlamaIndex yang akurat untuk struk Indonesia</li>
+          <li>Mengenali struk Indomaret, Alfamart, supermarket, dan nota manual</li>
+          <li>Otomatis kategori sebagai belanja harian atau sesuai konteks</li>
+          <li>Juga bisa kirim foto menu makanan untuk catat pengeluaran makan</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MULTI -->
+    <div class="demo-panels" id="demo-multi" style="display:none">
+      <div class="demo-phone-sm">
+        <div class="demo-ph-bar">
+          <div class="ph-av" style="width:28px;height:28px;font-size:.75rem">🤖</div>
+          <div style="margin-left:6px"><div class="ph-name" style="font-size:.78rem">Nayyira AI</div></div>
+        </div>
+        <div class="demo-chat">
+          <div class="date-chip">Hari ini</div>
+          <div class="bbl-me">beli timun 5rb, jajan kebab 15rb, bayar parkir 3rb</div>
+          <div class="ts ts-r">10:00</div>
+          <div class="bbl-ai">✅ Dicatat 3 transaksi!<br><br>• Timun <b>Rp 5.000</b> · Belanja sayur<br>• Kebab <b>Rp 15.000</b> · Jajan<br>• Parkir <b>Rp 3.000</b> · Transportasi</div>
+          <div class="ts ts-l">10:00</div>
+          <div class="bbl-me">gaji masuk 4.5jt, bonus 500rb</div>
+          <div class="ts ts-r">14:00</div>
+          <div class="bbl-ai">✅ Dicatat 2 pemasukan!<br><br>• Gaji <b>Rp 4.500.000</b> · Pemasukan<br>• Bonus <b>Rp 500.000</b> · Pemasukan</div>
+          <div class="ts ts-l">14:00</div>
+        </div>
+      </div>
+      <div class="demo-desc">
+        <h3>Sebutkan sekaligus — dicatat semua</h3>
+        <p>Ingat beberapa transaksi sekaligus? Sebutkan dalam satu pesan, AI langsung catat semua tanpa perlu kirim satu per satu.</p>
+        <ul class="demo-points">
+          <li>Bisa catat hingga 10+ transaksi dalam satu pesan</li>
+          <li>Masing-masing otomatis dapat kategori yang tepat</li>
+          <li>Bisa campurkan pemasukan dan pengeluaran sekaligus</li>
+          <li>Hemat waktu untuk recap harian sekaligus</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- HAPUS -->
+    <div class="demo-panels" id="demo-hapus" style="display:none">
+      <div class="demo-phone-sm">
+        <div class="demo-ph-bar">
+          <div class="ph-av" style="width:28px;height:28px;font-size:.75rem">🤖</div>
+          <div style="margin-left:6px"><div class="ph-name" style="font-size:.78rem">Nayyira AI</div></div>
+        </div>
+        <div class="demo-chat">
+          <div class="date-chip">Hari ini</div>
+          <div class="bbl-me">hapus transaksi tanggal 14 april</div>
+          <div class="ts ts-r">09:00</div>
+          <div class="bbl-ai">Ini transaksi 14 Apr:<br><br>1) Kopi — <b>Rp 25.000</b><br>2) Makan siang — <b>Rp 35.000</b><br>3) Bensin — <b>Rp 50.000</b><br><br>Ketik <b>nomor</b> yang mau dihapus.</div>
+          <div class="ts ts-l">09:00</div>
+          <div class="bbl-me">2</div>
+          <div class="ts ts-r">09:01</div>
+          <div class="bbl-ai">Hapus <b>Makan siang Rp 35.000</b>?<br>(*ya hapus* / *batal*)</div>
+          <div class="ts ts-l">09:01</div>
+          <div class="bbl-me">ya hapus</div>
+          <div class="ts ts-r">09:01</div>
+          <div class="bbl-ai">✅ Berhasil dihapus!</div>
+          <div class="ts ts-l">09:01</div>
+        </div>
+      </div>
+      <div class="demo-desc">
+        <h3>Salah catat? Hapus atau edit dengan mudah</h3>
+        <p>Tidak perlu buka spreadsheet untuk koreksi. Cukup minta AI hapus atau ubah langsung dari WhatsApp.</p>
+        <ul class="demo-points">
+          <li>Hapus: sebutkan tanggal, AI tampilkan daftar, pilih yang mau dihapus</li>
+          <li>Edit: minta ubah nominal, deskripsi, atau kategori</li>
+          <li>AI selalu konfirmasi sebelum eksekusi hapus atau edit</li>
+          <li>Riwayat tetap aman — hanya berubah yang kamu minta</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LAPORAN -->
+    <div class="demo-panels" id="demo-laporan" style="display:none">
+      <div class="demo-phone-sm">
+        <div class="demo-ph-bar">
+          <div class="ph-av" style="width:28px;height:28px;font-size:.75rem">🤖</div>
+          <div style="margin-left:6px"><div class="ph-name" style="font-size:.78rem">Nayyira AI</div></div>
+        </div>
+        <div class="demo-chat">
+          <div class="date-chip">Hari ini</div>
+          <div class="bbl-me">rekap pengeluaran bulan ini dong</div>
+          <div class="ts ts-r">20:00</div>
+          <div class="bbl-ai"><b>Rekap April 2026</b><br><br>💸 Pengeluaran: <b>Rp 2.340.000</b><br>💰 Pemasukan: <b>Rp 5.000.000</b><br>✨ Sisa: <b>Rp 2.660.000</b><br><br>Top 3 kategori:<br>1) Makan di luar — Rp 680.000<br>2) Transportasi — Rp 420.000<br>3) Belanja harian — Rp 350.000</div>
+          <div class="ts ts-l">20:00</div>
+          <div class="bbl-me">kategori mana yang paling boros?</div>
+          <div class="ts ts-r">20:01</div>
+          <div class="bbl-ai">Paling boros: <b>Makan di luar</b> 🍽️<br>Rp 680.000 bulan ini vs Rp 420.000 bulan lalu (+62%).<br><br>Mau aku lihat detail per hari?</div>
+          <div class="ts ts-l">20:01</div>
+        </div>
+      </div>
+      <div class="demo-desc">
+        <h3>Tanya laporan kapanpun — jawab dalam detik</h3>
+        <p>Tidak perlu buka spreadsheet, tidak perlu hitung manual. Tanya saja ke AI seperti chat ke teman, langsung dapat jawaban dengan data nyata.</p>
+        <ul class="demo-points">
+          <li>Rekap harian, mingguan, bulanan, atau periode custom</li>
+          <li>Top kategori pengeluaran terbesar bulan ini</li>
+          <li>Perbandingan bulan ini vs bulan lalu</li>
+          <li>Analisa tren: "bulan ini lebih boros dari biasanya?"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPREADSHEET DETAIL -->
+<section class="sheet-sec" id="spreadsheet">
+  <div class="sheet-grid">
+    <div>
+      <div class="eyebrow">Spreadsheet yang kamu dapat</div>
+      <div class="sec-h" style="font-size:clamp(1.8rem,3vw,2.6rem)">Dashboard keuangan<br>yang siap pakai</div>
+      <p class="sec-p" style="margin-bottom:1.5rem">Setiap transaksi masuk otomatis. Grafik, rekap, dan analisis tersedia real-time. Spreadsheet milikmu sendiri — bisa dimodifikasi bebas.</p>
+      <div style="display:flex;flex-direction:column;gap:.9rem">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:32px;height:32px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">📊</div>
+          <div><div style="font-size:.9rem;font-weight:600;color:var(--dark);margin-bottom:.2rem">Dashboard ringkasan otomatis</div><p style="font-size:.78rem;color:var(--mu);line-height:1.65">Pemasukan, pengeluaran, sisa saldo, grafik batang 6 bulan terakhir — semua langsung update tiap transaksi masuk.</p></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:32px;height:32px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">⚖️</div>
+          <div><div style="font-size:.9rem;font-weight:600;color:var(--dark);margin-bottom:.2rem">Budgeting 50/30/20 otomatis</div><p style="font-size:.78rem;color:var(--mu);line-height:1.65">Transaksi diklasifikasikan ke Kebutuhan, Keinginan, dan Investasi — lengkap dengan persentase realisasi.</p></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:32px;height:32px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🏆</div>
+          <div><div style="font-size:.9rem;font-weight:600;color:var(--dark);margin-bottom:.2rem">Top pengeluaran & tren</div><p style="font-size:.78rem;color:var(--mu);line-height:1.65">Lihat kategori paling boros, bandingkan bulan ini vs bulan lalu, dan tren 6 bulan ke belakang.</p></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:32px;height:32px;border-radius:10px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">✏️</div>
+          <div><div style="font-size:.9rem;font-weight:600;color:var(--dark);margin-bottom:.2rem">Bisa dimodifikasi bebas</div><p style="font-size:.78rem;color:var(--mu);line-height:1.65">Spreadsheet Google Sheets milikmu sendiri. Tambah kolom, ubah formula, buat grafik baru — sebebas kamu mau.</p></div>
+        </div>
+      </div>
+    </div>
+    <!-- SPREADSHEET MOCKUP -->
+    <div class="sheet-card">
+      <div class="sheet-topbar">
+        <div class="win-btns"><div class="win-btn"></div><div class="win-btn"></div><div class="win-btn"></div></div>
+        <div class="sheet-url">docs.google.com/spreadsheets/d/Financial_Tracker_Nayyira_AI</div>
+      </div>
+      <div class="sheet-tabs-row">
+        <div class="sh-tab on" onclick="switchSheet('dashboard',this)">📊 Dashboard</div>
+        <div class="sh-tab" onclick="switchSheet('transaksi',this)">📝 Transaksi</div>
+        <div class="sh-tab" onclick="switchSheet('kategori',this)">🏷️ Kategori</div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div id="sheet-dashboard" style="padding:1rem">
+        <div class="dash-header">
+          <div class="dash-title">📊 Financial Dashboard</div>
+          <div class="dash-period">April 2026</div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-l">Pemasukan</div><div class="kpi-v">Rp 5,0jt</div><div class="kpi-badge up">▲ 14%</div></div>
+          <div class="kpi"><div class="kpi-l">Pengeluaran</div><div class="kpi-v">Rp 2,3jt</div><div class="kpi-badge dn">▲ 8%</div></div>
+          <div class="kpi"><div class="kpi-l">Sisa Saldo</div><div class="kpi-v">Rp 2,7jt</div><div class="kpi-badge up">▲ 22%</div></div>
+          <div class="kpi"><div class="kpi-l">Transaksi</div><div class="kpi-v">48</div><div class="kpi-badge up">▲ 6%</div></div>
+        </div>
+        <div class="section-label">Tren 6 Bulan — Pengeluaran vs Pemasukan</div>
+        <div class="bar-chart">
+          <div class="bar-group"><div class="bar income" style="height:48px"></div><div class="bar expense" style="height:38px"></div></div>
+          <div class="bar-group"><div class="bar income" style="height:52px"></div><div class="bar expense" style="height:40px"></div></div>
+          <div class="bar-group"><div class="bar income" style="height:45px"></div><div class="bar expense" style="height:44px"></div></div>
+          <div class="bar-group"><div class="bar income" style="height:58px"></div><div class="bar expense" style="height:35px"></div></div>
+          <div class="bar-group"><div class="bar income" style="height:50px"></div><div class="bar expense" style="height:42px"></div></div>
+          <div class="bar-group"><div class="bar income" style="height:62px"></div><div class="bar expense" style="height:30px"></div></div>
+        </div>
+        <div class="bar-labels">
+          <span class="bar-lbl">Nov</span><span class="bar-lbl">Des</span><span class="bar-lbl">Jan</span><span class="bar-lbl">Feb</span><span class="bar-lbl">Mar</span><span class="bar-lbl">Apr</span>
+        </div>
+        <div style="display:flex;gap:12px;margin-bottom:1rem">
+          <div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:2px;background:#22c55e"></div><span style="font-size:.6rem;color:#64748b">Pemasukan</span></div>
+          <div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:2px;background:#f97316"></div><span style="font-size:.6rem;color:#64748b">Pengeluaran</span></div>
+        </div>
+        <div class="section-label">Budgeting 50/30/20</div>
+        <div class="budget-row">
+          <div class="donut-wrap">
+            <svg class="donut-svg" width="70" height="70" viewBox="0 0 70 70">
+              <circle cx="35" cy="35" r="28" fill="none" stroke="#f1f5f9" stroke-width="8"/>
+              <circle cx="35" cy="35" r="28" fill="none" stroke="#22c55e" stroke-width="8" stroke-dasharray="88 88" stroke-dashoffset="0"/>
+              <circle cx="35" cy="35" r="28" fill="none" stroke="#f97316" stroke-width="8" stroke-dasharray="53 123" stroke-dashoffset="-88"/>
+              <circle cx="35" cy="35" r="28" fill="none" stroke="#3b82f6" stroke-width="8" stroke-dasharray="35 141" stroke-dashoffset="-141"/>
+            </svg>
+            <div class="donut-label">Budget<br>Check</div>
+          </div>
+          <div class="budget-items">
+            <div class="bud-item">
+              <div class="bud-dot" style="background:#22c55e"></div>
+              <div class="bud-name">Kebutuhan</div>
+              <div class="bud-pct">50%</div>
+            </div>
+            <div style="height:3px;background:#f1f5f9;border-radius:2px;margin-left:13px;margin-bottom:3px;overflow:hidden"><div style="height:100%;width:88%;background:#22c55e;border-radius:2px"></div></div>
+            <div class="bud-item">
+              <div class="bud-dot" style="background:#f97316"></div>
+              <div class="bud-name">Keinginan</div>
+              <div class="bud-pct">30%</div>
+            </div>
+            <div style="height:3px;background:#f1f5f9;border-radius:2px;margin-left:13px;margin-bottom:3px;overflow:hidden"><div style="height:100%;width:72%;background:#f97316;border-radius:2px"></div></div>
+            <div class="bud-item">
+              <div class="bud-dot" style="background:#3b82f6"></div>
+              <div class="bud-name">Investasi</div>
+              <div class="bud-pct">20%</div>
+            </div>
+            <div style="height:3px;background:#f1f5f9;border-radius:2px;margin-left:13px;overflow:hidden"><div style="height:100%;width:45%;background:#3b82f6;border-radius:2px"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANSAKSI -->
+      <div id="sheet-transaksi" style="display:none">
+        <div class="trx-header-row">
+          <div class="trx-col-h">Tanggal</div>
+          <div class="trx-col-h">Deskripsi</div>
+          <div class="trx-col-h">Kategori</div>
+          <div class="trx-col-h">Jenis</div>
+          <div class="trx-col-h" style="text-align:right">Nominal</div>
+        </div>
+        <div class="trx-row"><div class="trx-date">15 Apr 26</div><div class="trx-desc">Kopi Kenangan</div><div class="trx-cat">Minuman</div><div><span class="trx-jenis jenis-out">Keluar</span></div><div class="trx-nominal nom-out">-25.000</div></div>
+        <div class="trx-row"><div class="trx-date">15 Apr 26</div><div class="trx-desc">Bensin Pertamina</div><div class="trx-cat">Transportasi</div><div><span class="trx-jenis jenis-out">Keluar</span></div><div class="trx-nominal nom-out">-50.000</div></div>
+        <div class="trx-row"><div class="trx-date">15 Apr 26</div><div class="trx-desc">Listrik PLN</div><div class="trx-cat">Tagihan</div><div><span class="trx-jenis jenis-out">Keluar</span></div><div class="trx-nominal nom-out">-200.000</div></div>
+        <div class="trx-row"><div class="trx-date">14 Apr 26</div><div class="trx-desc">Belanja Alfamart</div><div class="trx-cat">Belanja</div><div><span class="trx-jenis jenis-out">Keluar</span></div><div class="trx-nominal nom-out">-47.500</div></div>
+        <div class="trx-row"><div class="trx-date">14 Apr 26</div><div class="trx-desc">Makan siang</div><div class="trx-cat">Makan luar</div><div><span class="trx-jenis jenis-out">Keluar</span></div><div class="trx-nominal nom-out">-35.000</div></div>
+        <div class="trx-row" style="background:#f0fdf4"><div class="trx-date">13 Apr 26</div><div class="trx-desc">Gaji April</div><div class="trx-cat">Pemasukan</div><div><span class="trx-jenis jenis-in">Masuk</span></div><div class="trx-nominal nom-in">+5.000.000</div></div>
+        <div class="trx-row"><div class="trx-date">13 Apr 26</div><div class="trx-desc">Parkir motor</div><div class="trx-cat">Transportasi</div><div><span class="trx-jenis jenis-out">Keluar</span></div><div class="trx-nominal nom-out">-3.000</div></div>
+        <div class="trx-row"><div class="trx-date">12 Apr 26</div><div class="trx-desc">Jajan kebab</div><div class="trx-cat">Jajan</div><div><span class="trx-jenis jenis-out">Keluar</span></div><div class="trx-nominal nom-out">-15.000</div></div>
+        <div style="padding:8px 12px;font-size:.62rem;color:#94a3b8;text-align:center;border-top:1px solid #f1f5f9">dan 40 transaksi lainnya ↓</div>
+      </div>
+
+      <!-- KATEGORI -->
+      <div id="sheet-kategori" style="display:none;padding:1rem">
+        <div class="dash-header">
+          <div class="dash-title">🏷️ Top Pengeluaran</div>
+          <div class="dash-period">April 2026</div>
+        </div>
+        <div class="cat-row"><div class="cat-rank">1</div><div class="cat-dot" style="background:#ef4444"></div><div class="cat-name">Makan di luar</div><div class="cat-bar-bg"><div class="cat-bar-fill" style="width:90%;background:#ef4444"></div></div><div class="cat-amt">680.000</div><div class="cat-pct">29%</div></div>
+        <div class="cat-row"><div class="cat-rank">2</div><div class="cat-dot" style="background:#f97316"></div><div class="cat-name">Transportasi</div><div class="cat-bar-bg"><div class="cat-bar-fill" style="width:62%;background:#f97316"></div></div><div class="cat-amt">420.000</div><div class="cat-pct">18%</div></div>
+        <div class="cat-row"><div class="cat-rank">3</div><div class="cat-dot" style="background:#eab308"></div><div class="cat-name">Belanja harian</div><div class="cat-bar-bg"><div class="cat-bar-fill" style="width:51%;background:#eab308"></div></div><div class="cat-amt">350.000</div><div class="cat-pct">15%</div></div>
+        <div class="cat-row"><div class="cat-rank">4</div><div class="cat-dot" style="background:#22c55e"></div><div class="cat-name">Tagihan</div><div class="cat-bar-bg"><div class="cat-bar-fill" style="width:44%;background:#22c55e"></div></div><div class="cat-amt">300.000</div><div class="cat-pct">13%</div></div>
+        <div class="cat-row"><div class="cat-rank">5</div><div class="cat-dot" style="background:#3b82f6"></div><div class="cat-name">Minuman/jajan</div><div class="cat-bar-bg"><div class="cat-bar-fill" style="width:32%;background:#3b82f6"></div></div><div class="cat-amt">220.000</div><div class="cat-pct">9%</div></div>
+        <div class="cat-row"><div class="cat-rank">6</div><div class="cat-dot" style="background:#8b5cf6"></div><div class="cat-name">Kesehatan</div><div class="cat-bar-bg"><div class="cat-bar-fill" style="width:22%;background:#8b5cf6"></div></div><div class="cat-amt">150.000</div><div class="cat-pct">6%</div></div>
+        <div class="cat-row"><div class="cat-rank">7</div><div class="cat-dot" style="background:#94a3b8"></div><div class="cat-name">Lainnya</div><div class="cat-bar-bg"><div class="cat-bar-fill" style="width:28%;background:#94a3b8"></div></div><div class="cat-amt">220.000</div><div class="cat-pct">10%</div></div>
+        <div style="font-size:.65rem;color:#94a3b8;text-align:center;margin-top:.8rem;padding-top:.8rem;border-top:1px solid #f1f5f9">Total pengeluaran: <strong style="color:#1e293b">Rp 2.340.000</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PASANGAN SECTION -->
+<section class="pasangan-sec">
+  <div class="pasangan-inner">
+    <div style="text-align:center;margin-bottom:.5rem"><div class="pas-badge">💑 Fitur Baru</div></div>
+    <div class="eyebrow" style="text-align:center;margin-top:1rem">Paket Pasangan</div>
+    <div class="sec-h" style="text-align:center;max-width:580px;margin:0 auto 1rem">Kelola keuangan bersama<br>pasanganmu — dalam satu grup</div>
+    <p class="sec-p" style="text-align:center;max-width:500px;margin:0 auto 0">Add bot ke grup WhatsApp kalian berdua, mention @Nayyira, dan transaksi siapapun langsung masuk ke spreadsheet bersama.</p>
+
+    <div class="pasangan-grid">
+      <div class="pasangan-phones">
+        <div class="pas-phone">
+          <div class="pas-ph-bar">
+            <div class="pas-ph-av" style="background:linear-gradient(135deg,#22c55e,#16a34a)">🤖</div>
+            <div style="margin-left:7px"><div class="ph-name" style="font-size:.72rem">Grup Keluarga Kita 👨‍👩</div><div class="ph-status" style="font-size:.58rem">3 anggota</div></div>
+          </div>
+          <div class="pas-chat">
+            <div class="pas-date">Hari ini</div>
+            <div class="pas-bbl-me">@Nayyira beli sayur 25rb</div>
+            <div class="pas-ts pas-ts-r">08:30</div>
+            <div class="pas-bbl-ai">✅ Dicatat!<br><b>Beli sayur</b> Rp 25.000<br>oleh: Istri</div>
+            <div class="pas-ts pas-ts-l">08:31</div>
+            <div class="pas-bbl-me" style="background:#1a3a4d;color:#c8dced">@Nayyira bensin 50rb</div>
+            <div class="pas-ts pas-ts-r">09:15</div>
+            <div class="pas-bbl-ai">✅ Dicatat!<br><b>Bensin</b> Rp 50.000<br>oleh: Suami</div>
+            <div class="pas-ts pas-ts-l">09:15</div>
+            <div class="pas-bbl-me">@Nayyira rekap hari ini</div>
+            <div class="pas-ts pas-ts-r">21:00</div>
+            <div class="pas-bbl-ai"><b>Rekap 15 Apr:</b><br>• Istri: Rp 125.000<br>• Suami: Rp 180.000<br>Total: <b>Rp 305.000</b></div>
+            <div class="pas-ts pas-ts-l">21:00</div>
+          </div>
+        </div>
+      </div>
+      <div class="pasangan-desc">
+        <h3>Satu grup, dua orang,<br>keuangan lebih transparan</h3>
+        <p>Tidak perlu lagi saling tanya "tadi beli apa?". Semua pengeluaran bersama tercatat otomatis, terorganisir, dan bisa dilihat kapanpun.</p>
+        <ul class="pasangan-feats">
+          <li>Satu spreadsheet bersama — keduanya bisa lihat semua transaksi</li>
+          <li>Kolom "Dicatat oleh" — tahu siapa yang belanja apa</li>
+          <li>Mention @Nayyira di grup untuk catat, hapus, atau cek laporan</li>
+          <li>Rekap harian bersama: total pengeluaran suami & istri</li>
+          <li>Setup mudah: buat grup → add bot → ketik /daftar</li>
+        </ul>
+        <a href="#daftar" onclick="selectPaket('pasangan')" class="btn-p" style="display:inline-block">Coba Paket Pasangan — Rp 149rb</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="comp-sec">
+  <div class="eyebrow">Kenapa Nayyira AI?</div>
+  <div class="sec-h">Lebih praktis dari cara lain</div>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Fitur</th>
+        <th>Catat manual</th>
+        <th>Aplikasi keuangan</th>
+        <th class="hl">✨ Nayyira AI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Input via WhatsApp</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+      <tr><td>Voice note jadi transaksi</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+      <tr><td>Scan foto struk otomatis</td><td><span class="no">✗</span></td><td><span class="na">sebagian</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+      <tr><td>Catat multi transaksi sekaligus</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+      <tr><td>Hapus/edit via chat</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+      <tr><td>Spreadsheet bisa dimodifikasi</td><td><span class="yes">✓</span></td><td><span class="no">✗</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+      <tr><td>Dashboard & grafik otomatis</td><td><span class="no">✗</span></td><td><span class="yes">✓</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+      <tr><td>Paket keuangan pasangan</td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+      <tr><td>Tidak perlu install aplikasi</td><td><span class="yes">✓</span></td><td><span class="no">✗</span></td><td class="hl"><span class="yes">✓</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-sec">
+  <div class="testi-inner">
+    <div class="eyebrow" style="color:#4ade80;text-align:center">Yang mereka bilang</div>
+    <div class="sec-h" style="color:#fff;text-align:center">Nyata dari pengguna aktif</div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">Akhirnya bisa tahu gajian kemana aja. Dulu cuma merasa boros tapi ga tau borosnya di mana. Sekarang tiap mau jajan langsung WhatsApp dulu.</div>
+        <div class="testi-author"><div class="testi-av">👩</div><div><div class="testi-name">Laila T.</div><div class="testi-role">Karyawan swasta, Jakarta</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">Kirim voice note sambil nyetir pulang kantor, langsung masuk spreadsheet. Tidak perlu buka aplikasi lain. Paling praktis yang pernah saya coba.</div>
+        <div class="testi-author"><div class="testi-av">👨</div><div><div class="testi-name">Dimas R.</div><div class="testi-role">Freelancer, Bandung</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">Pakai paket pasangan sama suami. Akhirnya kita tahu pengeluaran keluarga sebulan habis berapa dan kemana. Lebih transparan dan tidak ada salah paham soal uang.</div>
+        <div class="testi-author"><div class="testi-av">👩</div><div><div class="testi-name">Sari W.</div><div class="testi-role">Ibu rumah tangga, Surabaya</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-sec" id="harga">
+  <div class="pricing-inner">
+    <div class="eyebrow" style="color:#4ade80;text-align:center">Harga Terjangkau</div>
+    <div class="pricing-h" style="text-align:center">Lebih murah dari<br>satu kopi seminggu</div>
+    <div class="pricing-sub" style="text-align:center;max-width:480px;margin:0 auto 3rem">Setup sekali, langsung aktif dalam 5 menit. Tidak ada biaya tersembunyi.</div>
+    <div class="plans">
+      <div class="plan" onclick="selectPaket('mulai');document.getElementById('daftar').scrollIntoView({behavior:'smooth'})">
+        <div class="plan-icon">🚀</div>
+        <div class="plan-name">Paket Mulai</div>
+        <div class="plan-price">Rp 99rb</div>
+        <div class="plan-note">Setup + bulan pertama aktif</div>
+        <ul class="plan-feats">
+          <li>Spreadsheet pribadi siap pakai</li>
+          <li>Input teks, voice note & foto struk</li>
+          <li>Dashboard & grafik otomatis</li>
+          <li>Budgeting 50/30/20</li>
+          <li>Chat AI untuk tanya laporan</li>
+        </ul>
+        <button class="plan-btn">Mulai sekarang</button>
+      </div>
+      <div class="plan pop" onclick="selectPaket('tahunan');document.getElementById('daftar').scrollIntoView({behavior:'smooth'})">
+        <div class="pop-badge">✨ Paling hemat</div>
+        <div class="plan-icon">⭐</div>
+        <div class="plan-name">Paket Tahunan</div>
+        <div class="plan-price">Rp 199rb</div>
+        <div class="plan-note">Setara Rp 17rb/bulan — hemat 80%!</div>
+        <ul class="plan-feats">
+          <li>Semua fitur Paket Mulai</li>
+          <li>12 bulan penuh tanpa batas</li>
+          <li>Lock harga — aman dari kenaikan</li>
+          <li>Prioritas respon support</li>
+          <li>Hemat vs perpanjang bulanan</li>
+        </ul>
+        <button class="plan-btn">Pilih Tahunan</button>
+      </div>
+      <div class="plan" onclick="selectPaket('pasangan');document.getElementById('daftar').scrollIntoView({behavior:'smooth'})">
+        <div class="plan-icon">💑</div>
+        <div class="plan-name">Paket Pasangan</div>
+        <div class="plan-price">Rp 149rb</div>
+        <div class="plan-note">Setup + bulan pertama · untuk berdua</div>
+        <ul class="plan-feats">
+          <li>Satu spreadsheet bersama</li>
+          <li>Bot masuk ke grup WA kalian</li>
+          <li>Catat transaksi berdua dari grup</li>
+          <li>Kolom "dicatat oleh" tiap transaksi</li>
+          <li>Rekap pengeluaran per orang</li>
+        </ul>
+        <button class="plan-btn">Pilih Pasangan</button>
+      </div>
+      <div class="plan" onclick="selectPaket('bulanan');document.getElementById('daftar').scrollIntoView({behavior:'smooth'})">
+        <div class="plan-icon">🔄</div>
+        <div class="plan-name">Perpanjang</div>
+        <div class="plan-price">Rp 19rb<small>/bln</small></div>
+        <div class="plan-note">Untuk pengguna aktif bulan ke-2+</div>
+        <ul class="plan-feats">
+          <li>Lanjut tanpa setup ulang</li>
+          <li>Data tetap tersimpan aman</li>
+          <li>Semua fitur tetap aktif</li>
+          <li>Bisa berhenti kapanpun</li>
+          <li>Fleksibel tanpa kontrak</li>
+        </ul>
+        <button class="plan-btn">Perpanjang</button>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap">
+      <span style="color:#6b8a70;font-size:.78rem;display:flex;align-items:center;gap:6px"><span style="color:#22c55e">✓</span>Aktif dalam 5 menit</span>
+      <span style="color:#6b8a70;font-size:.78rem;display:flex;align-items:center;gap:6px"><span style="color:#22c55e">✓</span>Bayar via Mayar — aman</span>
+      <span style="color:#6b8a70;font-size:.78rem;display:flex;align-items:center;gap:6px"><span style="color:#22c55e">✓</span>Data di Google Drive kamu</span>
+      <span style="color:#6b8a70;font-size:.78rem;display:flex;align-items:center;gap:6px"><span style="color:#22c55e">✓</span>Tanpa install — cukup WhatsApp</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec">
+  <div class="eyebrow">Pertanyaan umum</div>
+  <div class="sec-h">Ada yang ingin ditanyakan?</div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Apakah data saya aman? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Ya, 100% aman. Spreadsheet disimpan di Google Drive pribadimu — hanya kamu yang punya akses penuh. Kami tidak menyimpan data transaksimu di server kami sama sekali. Data kamu ya data kamu.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Apakah harus install aplikasi baru? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Sama sekali tidak perlu. Nayyira AI bekerja langsung via WhatsApp yang sudah ada di HP kamu. Tidak ada download, tidak ada login tambahan — cukup chat seperti biasa.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Bagaimana setup Paket Pasangan? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Setelah bayar, kamu akan dapat WA instruksi setup. Cukup: (1) buat grup WA bersama pasangan, (2) tambahkan nomor bot ke grup, (3) ketik /daftar di grup. Selesai! Bot langsung aktif di grup kalian.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Berapa lama akun aktif setelah bayar? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Kurang dari 5 menit. Setelah pembayaran berhasil, sistem otomatis membuat spreadsheet kamu dan mengirim pesan selamat datang via WhatsApp. Langsung bisa dipakai.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Bagaimana kalau AI salah baca transaksi? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Bisa langsung dikoreksi via WhatsApp — ketik "hapus transaksi tadi" atau "edit makan siang jadi 40rb". AI bisa hapus dan edit transaksi tanpa perlu buka spreadsheet.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Apakah bisa berhenti kapanpun? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Ya, tidak ada kontrak. Langganan berjalan per bulan dan bisa dihentikan kapanpun. Spreadsheet dan data transaksimu tetap tersimpan di Google Drive milikmu selamanya.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-sec" id="daftar">
+  <div class="form-inner">
+    <div class="form-h">Daftar sekarang</div>
+    <div class="form-p">Spreadsheet kamu dibuat otomatis setelah pembayaran. Tidak perlu setup manual apapun — aktif dalam 5 menit.</div>
+    <div class="fg2">
+      <div class="fg" style="margin:0"><label>Nama lengkap</label><input id="nama" placeholder="Nama kamu" type="text"></div>
+      <div class="fg" style="margin:0"><label>Nomor WhatsApp</label><input id="wa" placeholder="628xxxxxxxxxx" type="text"></div>
+    </div>
+    <div class="fg"><label>Email (untuk akses spreadsheet)</label><input id="email" placeholder="email@kamu.com" type="email"></div>
+    <div class="fg">
+      <label>Kode referral <span style="color:#2a4030;font-weight:400">(opsional — dapat diskon!)</span></label>
+      <div class="ref-row">
+        <input id="ref" placeholder="Contoh: HFDZ1234" style="text-transform:uppercase" type="text">
+        <button class="ref-btn" id="btn-ref" onclick="cekRef()">Cek kode</button>
+      </div>
+      <div class="ref-feedback" id="ref-feedback"></div>
+    </div>
+    <label style="display:block;margin-bottom:.7rem">Pilih paket</label>
+    <div class="pks">
+      <div class="pk sel" id="pk-mulai" onclick="selectPaket('mulai')">
+        <div class="pk-n">Paket Mulai</div>
+        <div class="pk-p">Rp 99rb</div>
+        <div class="pk-note">Setup + 1 bulan</div>
+      </div>
+      <div class="pk" id="pk-tahunan" onclick="selectPaket('tahunan')">
+        <div class="pk-badge">Paling hemat</div>
+        <div class="pk-n">Tahunan</div>
+        <div class="pk-p">Rp 199rb</div>
+        <div class="pk-note">Hemat 80%!</div>
+      </div>
+      <div class="pk" id="pk-pasangan" onclick="selectPaket('pasangan')">
+        <div class="pk-badge">Baru! 💑</div>
+        <div class="pk-n">Pasangan</div>
+        <div class="pk-p">Rp 149rb</div>
+        <div class="pk-note">Untuk berdua</div>
+      </div>
+      <div class="pk" id="pk-bulanan" onclick="selectPaket('bulanan')">
+        <div class="pk-n">Perpanjang</div>
+        <div class="pk-p">Rp 19rb<small>/bln</small></div>
+        <div class="pk-note">Bulan ke-2+</div>
+      </div>
+    </div>
+    <div class="total-row">
+      <div class="total-l">Total pembayaran</div>
+      <div style="display:flex;align-items:baseline">
+        <div class="total-v" id="tv">Rp 99.000</div>
+        <div class="ori" id="ori" style="display:none"></div>
+      </div>
+    </div>
+    <button class="submit-btn" id="sbtn" onclick="submit()">Lanjut ke Pembayaran →</button>
+    <div class="form-note">🔒 Pembayaran aman via Mayar · Spreadsheet aktif dalam &lt;5 menit</div>
+    <div class="form-trust">
+      <span><span class="ti">✓</span>Tanpa install</span>
+      <span><span class="ti">✓</span>Data di Google Drive kamu</span>
+      <span><span class="ti">✓</span>Bisa berhenti kapanpun</span>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Nayyira AI · Dibuat dengan ❤️ oleh Hafidz · <a href="#daftar">Daftar sekarang</a> · <a href="https://wa.me/6288291623735">Hubungi admin</a></footer>
+
+<script>
+const N8N='https://n8n-home.nayyiraai.online/webhook';
+const H={mulai:99000,tahunan:199000,pasangan:149000,bulanan:19000};
+let pak='mulai',refValid=false,refDiskon=10000;
+
+function selectPaket(p){
+  pak=p;
+  ['mulai','tahunan','pasangan','bulanan'].forEach(x=>{
+    const el=document.getElementById('pk-'+x);
+    if(el) el.classList.toggle('sel',x===p);
+  });
+  updateTotal();
+}
+
+function updateTotal(){
+  const d=refValid?refDiskon:0,t=H[pak]-d;
+  document.getElementById('tv').textContent='Rp '+t.toLocaleString('id');
+  const o=document.getElementById('ori');
+  if(d>0){o.style.display='block';o.textContent='Rp '+H[pak].toLocaleString('id')}
+  else o.style.display='none';
+}
+
+async function cekRef(){
+  const v=document.getElementById('ref').value.toUpperCase().trim();
+  const btn=document.getElementById('btn-ref');
+  const fb=document.getElementById('ref-feedback');
+  if(v.length<3){fb.className='ref-feedback err';fb.textContent='Kode minimal 3 karakter.';refValid=false;updateTotal();return}
+  btn.textContent='Mengecek...';btn.disabled=true;
+  try{
+    const res=await fetch(N8N+'/cek-referral',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kode:v})});
+    const data=await res.json();
+    refValid=data.valid===true;refDiskon=data.diskon||10000;
+    if(refValid){fb.className='ref-feedback ok';fb.innerHTML='✓ Kode valid! Kamu dapat <b>diskon Rp '+refDiskon.toLocaleString('id')+'</b> 🎉'}
+    else{fb.className='ref-feedback err';fb.textContent='Kode tidak ditemukan. Periksa kembali.'}
+  }catch(e){refValid=false;fb.className='ref-feedback err';fb.textContent='Gagal cek kode. Coba lagi.'}
+  btn.textContent='Cek kode';btn.disabled=false;
+  updateTotal();
+}
+
+function genKode(n){
+  const c=n.toUpperCase().replace(/[^A-Z]/g,'');
+  return(c.length>=4?c.slice(0,4):c.padEnd(4,'X'))+(Math.floor(1000+Math.random()*9000));
+}
+
+async function submit(){
+  const nama=document.getElementById('nama').value.trim();
+  const wa=document.getElementById('wa').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const ref=document.getElementById('ref').value.trim().toUpperCase();
+  if(!nama||!wa||!email){alert('Mohon lengkapi nama, nomor WA, dan email.');return}
+  if(!wa.startsWith('62')||wa.length<10){alert('Format WA: 628xxx...\nContoh: 6281234567890');return}
+  const btn=document.getElementById('sbtn');
+  btn.disabled=true;btn.textContent='Memproses...';
+  const d=refValid?refDiskon:0,t=H[pak]-d,kode=genKode(nama);
+  try{
+    const res=await fetch(N8N+'/nayyira-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nama,wa,email,paket:pak,harga:H[pak],diskon:d,total:t,kode_referral_baru:kode,referral_dipakai:ref||null,timestamp:new Date().toISOString()})});
+    const data=await res.json();
+    if(data.payment_url){window.location.href=data.payment_url;return}
+  }catch(e){}
+  btn.disabled=false;btn.textContent='Lanjut ke Pembayaran →';
+  alert('Terjadi kesalahan. Coba beberapa saat lagi atau hubungi admin.');
+}
+
+function toggleFaq(btn){
+  const item=btn.parentElement;
+  document.querySelectorAll('.faq-item.open').forEach(el=>{if(el!==item)el.classList.remove('open')});
+  item.classList.toggle('open');
+}
+
+function switchDemo(id,tab){
+  document.querySelectorAll('.demo-panels').forEach(el=>el.style.display='none');
+  document.getElementById('demo-'+id).style.display='grid';
+  document.querySelectorAll('.demo-tab').forEach(t=>t.classList.remove('on'));
+  tab.classList.add('on');
+  // mobile: single column
+  if(window.innerWidth<780) document.getElementById('demo-'+id).style.gridTemplateColumns='1fr';
+}
+
+function switchSheet(id,tab){
+  ['dashboard','transaksi','kategori'].forEach(t=>{
+    const el=document.getElementById('sheet-'+t);
+    if(el) el.style.display='none';
+  });
+  document.getElementById('sheet-'+id).style.display='block';
+  document.querySelectorAll('.sh-tab').forEach(t=>t.classList.remove('on'));
+  tab.classList.add('on');
+}
+
+// Auto-fill referral dari URL
+window.addEventListener('DOMContentLoaded',function(){
+  const p=new URLSearchParams(window.location.search);
+  const r=p.get('ref');
+  if(r){
+    document.getElementById('ref').value=r.toUpperCase();
+    cekRef();
+    setTimeout(()=>document.getElementById('daftar').scrollIntoView({behavior:'smooth'}),800);
+  }
+  const pk=p.get('paket');
+  if(pk&&H[pk]) selectPaket(pk);
+});
+</script>
+</body>
+</html>
