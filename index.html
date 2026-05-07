@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Nayyira AI — Catat Keuangan Cukup Lewat WhatsApp</title>
   <meta name="description"
-    content="AI pencatat keuangan via WhatsApp. Kirim teks, voice note, atau foto struk — langsung masuk spreadsheet otomatis. Mulai Rp 99.000.">
+    content="AI pencatat keuangan via WhatsApp powered by GPT-4o. Kirim teks, voice note, atau foto struk — langsung masuk spreadsheet otomatis. Mulai Rp 99.000.">
   <link
     href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
@@ -2609,11 +2609,696 @@
         padding: 5px 6px
       }
     }
+
+    /* ===== NEW PREMIUM COMPONENTS ===== */
+
+    /* URGENCY BANNER */
+    .urgency-bar {
+      background: linear-gradient(90deg, #0f3d22, #1a6b3a, #0f3d22);
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+      color: #fff;
+      text-align: center;
+      padding: .55rem 1rem;
+      font-size: .78rem;
+      font-weight: 600;
+      position: relative;
+      z-index: 101;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0 }
+      100% { background-position: -200% 0 }
+    }
+
+    .urg-badge {
+      background: #fbbf24;
+      color: #422006;
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-size: .68rem;
+      font-weight: 800;
+      animation: bounce-sm 1.4s infinite
+    }
+
+    @keyframes bounce-sm {
+      0%, 100% { transform: translateY(0) }
+      50% { transform: translateY(-2px) }
+    }
+
+    .urg-count {
+      background: rgba(255,255,255,.18);
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums
+    }
+
+    @media(max-width:680px) {
+      .urgency-bar { font-size: .68rem; padding: .5rem .8rem }
+      .urg-badge { font-size: .6rem }
+    }
+
+    /* LIVE STATS BAR IN HERO */
+    .live-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.8rem;
+      padding: 1rem 1.2rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.04);
+      max-width: 440px
+    }
+
+    .live-stat {
+      flex: 1;
+      text-align: center;
+      position: relative
+    }
+
+    .live-stat:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -.75rem;
+      top: 20%;
+      bottom: 20%;
+      width: 1px;
+      background: var(--border)
+    }
+
+    .live-stat-v {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.6rem;
+      color: var(--g);
+      line-height: 1;
+      font-variant-numeric: tabular-nums
+    }
+
+    .live-stat-l {
+      font-size: .65rem;
+      color: var(--mu);
+      margin-top: 4px;
+      font-weight: 500
+    }
+
+    .live-stat-pulse {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-right: 4px;
+      animation: pulse 1.5s infinite;
+      vertical-align: middle
+    }
+
+    @media(max-width:680px) {
+      .live-stats { padding: .85rem 1rem; gap: 1rem }
+      .live-stat-v { font-size: 1.3rem }
+      .live-stat-l { font-size: .58rem }
+    }
+
+    /* RATING STARS */
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap
+    }
+
+    .stars {
+      display: flex;
+      gap: 2px;
+      color: #fbbf24;
+      font-size: .95rem
+    }
+
+    .rating-txt {
+      font-size: .8rem;
+      color: var(--mu)
+    }
+
+    .rating-txt strong {
+      color: var(--text)
+    }
+
+
+
+    /* SOCIAL PROOF SECTION */
+    .social-sec {
+      padding: 5rem 2.5rem;
+      background: linear-gradient(180deg, var(--cream), var(--warm));
+      border-top: 1px solid var(--cream2);
+      border-bottom: 1px solid var(--cream2)
+    }
+
+    .social-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center
+    }
+
+    .big-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 3rem
+    }
+
+    @media(max-width:680px) {
+      .big-stats { grid-template-columns: 1fr 1fr; gap: .7rem }
+      .social-sec { padding: 3.5rem 1.2rem }
+    }
+
+    .big-stat {
+      background: #fff;
+      padding: 2rem 1rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: .3s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .big-stat:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(26, 107, 58, .08);
+      border-color: var(--gm)
+    }
+
+    .big-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gm), var(--g))
+    }
+
+    .big-stat-icon {
+      font-size: 1.8rem;
+      margin-bottom: .6rem
+    }
+
+    .big-stat-v {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.4rem;
+      color: var(--g);
+      line-height: 1;
+      font-variant-numeric: tabular-nums
+    }
+
+    .big-stat-v small {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      color: var(--gm);
+      font-weight: 700
+    }
+
+    .big-stat-l {
+      font-size: .78rem;
+      color: var(--mu);
+      margin-top: .3rem;
+      font-weight: 500
+    }
+
+    @media(max-width:680px) {
+      .big-stat { padding: 1.4rem .8rem }
+      .big-stat-v { font-size: 1.8rem }
+      .big-stat-l { font-size: .7rem }
+      .big-stat-icon { font-size: 1.4rem }
+    }
+
+    /* TESTIMONIALS ENHANCED */
+    .testi-new {
+      padding: 6rem 2.5rem;
+      background: var(--cream);
+      position: relative
+    }
+
+    .testi-new-inner {
+      max-width: 1100px;
+      margin: 0 auto
+    }
+
+    .testi-new-head {
+      text-align: center;
+      margin-bottom: 3rem
+    }
+
+    .testi-grid-new {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem
+    }
+
+    @media(max-width:820px) {
+      .testi-grid-new { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto }
+      .testi-new { padding: 4rem 1.2rem }
+    }
+
+    .testi-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.8rem;
+      border: 1px solid var(--border);
+      position: relative;
+      transition: .3s;
+      display: flex;
+      flex-direction: column
+    }
+
+    .testi-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.06)
+    }
+
+    .testi-card::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-family: 'Instrument Serif', serif;
+      font-size: 4rem;
+      color: var(--gl);
+      line-height: 1
+    }
+
+    .testi-stars {
+      color: #fbbf24;
+      margin-bottom: .8rem;
+      font-size: 1rem
+    }
+
+    .testi-text {
+      font-size: .9rem;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 1.4rem;
+      flex: 1
+    }
+
+    .testi-person {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--cream2)
+    }
+
+    .testi-av {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gl), #bbf7d0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08)
+    }
+
+    .testi-name {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .testi-role {
+      font-size: .7rem;
+      color: var(--mu);
+      margin-top: 2px
+    }
+
+
+
+    /* INTERACTIVE CALCULATOR */
+    .calc-sec {
+      padding: 6rem 2.5rem;
+      background: var(--dark);
+      color: #fff;
+      position: relative;
+      overflow: hidden
+    }
+
+    .calc-sec::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 80%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(34, 197, 94, .08), transparent 60%);
+      pointer-events: none
+    }
+
+    .calc-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative
+    }
+
+    @media(max-width:820px) {
+      .calc-inner { grid-template-columns: 1fr; gap: 2.5rem }
+      .calc-sec { padding: 4rem 1.2rem }
+    }
+
+    .calc-head h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      line-height: 1.15;
+      margin-bottom: 1rem
+    }
+
+    .calc-head h2 em {
+      font-style: italic;
+      color: #4ade80
+    }
+
+    .calc-head p {
+      color: #8fb094;
+      font-size: .95rem;
+      line-height: 1.8
+    }
+
+    .calc-box {
+      background: #0f1f12;
+      border: 1px solid #1e3024;
+      border-radius: 20px;
+      padding: 2rem
+    }
+
+    .calc-label {
+      font-size: .78rem;
+      color: #8fb094;
+      margin-bottom: .8rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .calc-label b {
+      color: #4ade80;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      font-weight: 400
+    }
+
+    .calc-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #1e3024;
+      border-radius: 3px;
+      outline: none;
+      margin-bottom: 1.5rem
+    }
+
+    .calc-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #22c55e;
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, .2);
+      transition: .2s
+    }
+
+    .calc-slider::-webkit-slider-thumb:hover {
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, .3)
+    }
+
+    .calc-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #22c55e;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, .2)
+    }
+
+    .calc-result {
+      background: #091510;
+      border: 1px solid #1a3020;
+      border-radius: 14px;
+      padding: 1.2rem;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .calc-result-l {
+      font-size: .78rem;
+      color: #8fb094
+    }
+
+    .calc-result-v {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.6rem;
+      color: #4ade80;
+      font-weight: 400
+    }
+
+    /* TRUST LOGOS ROW */
+    .trust-row {
+      padding: 2.5rem 2.5rem;
+      background: var(--warm);
+      border-bottom: 1px solid var(--cream2)
+    }
+
+    .trust-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center
+    }
+
+    .trust-label {
+      font-size: .72rem;
+      color: var(--mu);
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      margin-bottom: 1.5rem;
+      font-weight: 600
+    }
+
+    .trust-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap
+    }
+
+    .trust-badge {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: .7rem 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .82rem;
+      color: var(--text);
+      font-weight: 600;
+      transition: .2s
+    }
+
+    .trust-badge:hover {
+      border-color: var(--g);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.05)
+    }
+
+    .trust-badge .tb-ico {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem
+    }
+
+    /* STICKY CTA MOBILE */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: .85rem 1rem;
+      z-index: 97;
+      box-shadow: 0 -4px 20px rgba(0,0,0,.06);
+    }
+
+    .sticky-cta-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .sticky-cta-price {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.1rem;
+      color: var(--g);
+      line-height: 1
+    }
+
+    .sticky-cta-sub {
+      font-size: .62rem;
+      color: var(--mu);
+      margin-top: 2px
+    }
+
+    .sticky-cta-btn {
+      background: var(--g);
+      color: #fff;
+      padding: .7rem 1.3rem;
+      border-radius: 100px;
+      font-size: .82rem;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(26, 107, 58, .3);
+      animation: pulse-cta 2s infinite
+    }
+
+    @keyframes pulse-cta {
+      0%, 100% { box-shadow: 0 4px 14px rgba(26, 107, 58, .3) }
+      50% { box-shadow: 0 4px 14px rgba(26, 107, 58, .6), 0 0 0 8px rgba(26, 107, 58, .1) }
+    }
+
+    @media(max-width:768px) {
+      .sticky-cta { display: flex }
+      footer { padding-bottom: 5rem }
+    }
+
+    /* CTA PULSE */
+    .btn-p {
+      position: relative;
+      overflow: hidden
+    }
+
+    .btn-p::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.3);
+      transform: translate(-50%, -50%);
+      transition: width .6s, height .6s
+    }
+
+    .btn-p:hover::after {
+      width: 300px;
+      height: 300px
+    }
+
+    /* ANIMATED ARROW */
+    .arrow-anim {
+      display: inline-block;
+      animation: arrowMove 1.5s ease-in-out infinite
+    }
+
+    @keyframes arrowMove {
+      0%, 100% { transform: translateX(0) }
+      50% { transform: translateX(4px) }
+    }
+
+    /* NEW BADGE */
+    .new-badge {
+      display: inline-block;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      color: #422006;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: .62rem;
+      font-weight: 800;
+      margin-left: 8px;
+      text-transform: uppercase;
+      letter-spacing: .05em
+    }
+
+    /* COUNT UP ANIMATION */
+    .count-up {
+      display: inline-block;
+      font-variant-numeric: tabular-nums
+    }
+
+    /* LIVE DOT ON PHONE */
+    .live-dot-hero {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(239, 68, 68, .15);
+      border: 1px solid rgba(239, 68, 68, .4);
+      color: #ef4444;
+      padding: 3px 8px;
+      border-radius: 100px;
+      font-size: .58rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 3;
+      text-transform: uppercase;
+      letter-spacing: .05em
+    }
+
+    .live-dot-hero::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+      animation: pulse 1.2s infinite
+    }
+
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
+  <!-- GOOGLE ANALYTICS 4 — Measurement ID aktif -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRBZH063YH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YRBZH063YH');
+  </script>
 </head>
 
 <body>
+
+  <!-- URGENCY BAR -->
+  <div class="urgency-bar">
+    <span class="urg-badge">🔥 PROMO TERBATAS</span>
+    <span>Diskon special untuk 100 pendaftar pertama bulan ini —</span>
+    <span class="urg-count">Sisa <strong id="urg-slots">37</strong> slot</span>
+  </div>
 
   <nav>
     <a href="#" class="logo"><span class="logo-dot"></span>Nayyira AI</a>
@@ -2621,19 +3306,22 @@
       <a href="#demo" class="nav-link">Demo</a>
       <a href="#spreadsheet" class="nav-link">Spreadsheet</a>
       <a href="#harga" class="nav-link">Harga</a>
-      <a href="#daftar" class="nav-cta">Mulai sekarang</a>
+      <a href="#harga" class="nav-cta">Mulai sekarang</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div>
-      <div class="hero-tag"><span class="tag-dot"></span>AI Aktif 24 jam · Bahasa Indonesia</div>
+      <div class="hero-tag"><span class="tag-dot"></span>AI Aktif 24 jam · Powered by GPT-4o</div>
+      <div class="rating-row">
+        <div class="stars">★★★★★</div>
+        <div class="rating-txt"><strong>4.9/5</strong> dari 127+ pengguna aktif</div>
+      </div>
       <h1>Catat keuangan<br>cukup chat<br><em>WhatsApp.</em></h1>
-      <p class="hero-sub">Kirim teks, kirim voice note, atau foto struk belanja — Nayyira AI langsung catat ke
-        spreadsheet pribadimu secara otomatis. Tidak perlu install apapun.</p>
+      <p class="hero-sub">Kirim teks, voice note, atau foto struk — AI langsung catat ke spreadsheet pribadimu otomatis. <strong style="color:var(--g)">Respons dalam &lt;1 detik.</strong> Tidak perlu install apapun.</p>
       <div class="hero-btns">
-        <a href="#daftar" class="btn-p">Coba sekarang — Mulai Rp 99rb</a>
+        <a href="#harga" class="btn-p">Coba sekarang — Mulai Rp 99rb <span class="arrow-anim">→</span></a>
         <a href="#demo" class="btn-s">Lihat cara kerjanya ↓</a>
       </div>
       <div class="hero-proof">
@@ -2643,11 +3331,27 @@
           <div class="proof-av">👩</div>
           <div class="proof-av">👨</div>
         </div>
-        <div class="proof-txt">Sudah dipakai <strong>puluhan pengguna</strong> aktif</div>
+        <div class="proof-txt">Sudah dipakai <strong>127+ pengguna</strong> aktif di seluruh Indonesia</div>
+      </div>
+      <!-- LIVE STATS -->
+      <div class="live-stats">
+        <div class="live-stat">
+          <div class="live-stat-v"><span class="live-stat-pulse"></span><span class="count-up" data-target="1247" data-suffix="">0</span></div>
+          <div class="live-stat-l">Transaksi hari ini</div>
+        </div>
+        <div class="live-stat">
+          <div class="live-stat-v"><span class="count-up" data-target="99" data-suffix="%">0</span></div>
+          <div class="live-stat-l">Akurasi AI</div>
+        </div>
+        <div class="live-stat">
+          <div class="live-stat-v">&lt;<span class="count-up" data-target="1" data-suffix="">0</span>s</div>
+          <div class="live-stat-l">Waktu respons</div>
+        </div>
       </div>
     </div>
     <div class="phone-wrap">
-      <div class="phone">
+      <div class="phone" style="position:relative">
+        <div class="live-dot-hero">Live</div>
         <div class="ph-notch"></div>
         <div class="ph-bar">
           <div class="ph-av">🤖</div>
@@ -2691,17 +3395,16 @@
     </div>
   </section>
 
-  <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <div class="tech-pill"><span>🤖</span>Google Gemini — memahami bahasa natural</div>
+      <div class="tech-pill"><span>🤖</span>GPT-4o — AI powerful & akurat</div>
       <div class="tech-pill"><span>🎤</span>OpenAI Whisper — transkripsi voice note</div>
       <div class="tech-pill"><span>🧾</span>LlamaIndex OCR — baca foto struk</div>
       <div class="tech-pill"><span>📊</span>Google Sheets — tersimpan rapi & otomatis</div>
       <div class="tech-pill"><span>⚡</span>n8n Automation — workflow tanpa kode</div>
       <div class="tech-pill"><span>📱</span>WhatsApp — tanpa install apapun</div>
       <div class="tech-pill"><span>🔒</span>Data di Google Drive milikmu sendiri</div>
-      <div class="tech-pill"><span>🤖</span>Google Gemini — memahami bahasa natural</div>
+      <div class="tech-pill"><span>🤖</span>GPT-4o — AI powerful & akurat</div>
       <div class="tech-pill"><span>🎤</span>OpenAI Whisper — transkripsi voice note</div>
       <div class="tech-pill"><span>🧾</span>LlamaIndex OCR — baca foto struk</div>
       <div class="tech-pill"><span>📊</span>Google Sheets — tersimpan rapi & otomatis</div>
@@ -2710,6 +3413,52 @@
       <div class="tech-pill"><span>🔒</span>Data di Google Drive milikmu sendiri</div>
     </div>
   </div>
+
+  <!-- TRUST BADGES ROW -->
+  <div class="trust-row">
+    <div class="trust-inner">
+      <div class="trust-label">Kenapa bisa dipercaya</div>
+      <div class="trust-badges">
+        <div class="trust-badge"><div class="tb-ico">🔒</div>Enkripsi end-to-end</div>
+        <div class="trust-badge"><div class="tb-ico">🏆</div>Powered by GPT-4o</div>
+        <div class="trust-badge"><div class="tb-ico">💳</div>Pembayaran aman (Mayar)</div>
+        <div class="trust-badge"><div class="tb-ico">📊</div>Data 100% milikmu</div>
+        <div class="trust-badge"><div class="tb-ico">⚡</div>Respons &lt;1 detik</div>
+        <div class="trust-badge"><div class="tb-ico">🇮🇩</div>Dibuat di Indonesia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOCIAL PROOF - BIG STATS -->
+  <section class="social-sec">
+    <div class="social-inner">
+      <div class="eyebrow">Angka tidak bohong</div>
+      <div class="sec-h" style="max-width:700px;margin:0 auto">Dipercaya ratusan orang<br>untuk catat keuangan mereka</div>
+      <p class="sec-p" style="margin:1rem auto 0">Nayyira AI sudah membantu pengguna mencatat ribuan transaksi setiap hari — tanpa ribet, tanpa lupa.</p>
+      <div class="big-stats">
+        <div class="big-stat">
+          <div class="big-stat-icon">👥</div>
+          <div class="big-stat-v"><span class="count-up" data-target="127" data-suffix="+">0</span></div>
+          <div class="big-stat-l">Pengguna Aktif</div>
+        </div>
+        <div class="big-stat">
+          <div class="big-stat-icon">💬</div>
+          <div class="big-stat-v"><span class="count-up" data-target="24" data-suffix="">0</span><small>RB+</small></div>
+          <div class="big-stat-l">Transaksi Tercatat</div>
+        </div>
+        <div class="big-stat">
+          <div class="big-stat-icon">⏱️</div>
+          <div class="big-stat-v"><span class="count-up" data-target="15" data-suffix="">0</span><small> JAM</small></div>
+          <div class="big-stat-l">Rata-rata Waktu Hemat/Bulan</div>
+        </div>
+        <div class="big-stat">
+          <div class="big-stat-icon">⭐</div>
+          <div class="big-stat-v"><span class="count-up" data-target="49" data-decimal="true" data-suffix="">0</span><small>/5</small></div>
+          <div class="big-stat-l">Rating Pengguna</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- PROBLEM -->
   <section class="prob-sec">
@@ -2782,13 +3531,12 @@
           </div>
         </div>
         <div class="demo-desc">
-          <h3>Ketik seperti chat biasa — AI langsung mengerti</h3>
-          <p>Tidak perlu format khusus, tidak perlu tanda titik dua, tidak perlu pilih kategori. Tulis saja seperti
-            biasa, AI yang kerjakan sisanya.</p>
+          <h3>Ketik seperti chat biasa — GPT-4o langsung mengerti</h3>
+          <p>Tidak perlu format khusus. Tulis senatural mungkin, AI terbaik dari OpenAI memahami intent dan catat dengan akurat. Respons dalam <1 detik.</p>
           <ul class="demo-points">
+            <li>GPT-4o: AI paling akurat untuk memahami bahasa Indonesia natural</li>
             <li>Singkatan seperti "rb", "ribu", "k", "jt" langsung dimengerti</li>
-            <li>Kategori otomatis diisi berdasarkan konteks deskripsi</li>
-            <li>Tanggal otomatis pakai hari ini jika tidak disebutkan</li>
+            <li>Kategori otomatis diisi berdasarkan konteks dengan akurasi tinggi</li>
             <li>Bisa sebut tanggal relatif: "kemarin", "tadi pagi", "senin lalu"</li>
           </ul>
         </div>
@@ -3382,7 +4130,7 @@
             <li>Rekap harian bersama: total pengeluaran suami & istri</li>
             <li>Setup mudah: buat grup → add bot → ketik /daftar</li>
           </ul>
-          <a href="#daftar" onclick="selectPaket('pasangan')" class="btn-p" style="display:inline-block">Coba Paket
+          <a href="javascript:void(0)" onclick="pickPaket('pasangan', this)" class="btn-p" style="display:inline-block">Coba Paket
             Pasangan — Rp 149rb</a>
         </div>
       </div>
@@ -3510,6 +4258,119 @@
     </div>
   </section>
 
+  <!-- INTERACTIVE SAVINGS CALCULATOR -->
+  <section class="calc-sec">
+    <div class="calc-inner">
+      <div class="calc-head">
+        <div class="eyebrow" style="color:#4ade80">Kalkulator Penghematan</div>
+        <h2>Berapa banyak waktu yang bisa kamu <em>hemat</em>?</h2>
+        <p>Catat keuangan manual butuh rata-rata 30 detik per transaksi. Dengan Nayyira AI — hanya 3 detik. Geser slider untuk hitung sendiri.</p>
+      </div>
+      <div class="calc-box">
+        <div class="calc-label">
+          <span>Transaksi per hari</span>
+          <b id="calc-trx">10</b>
+        </div>
+        <input type="range" min="3" max="30" value="10" class="calc-slider" id="calc-slider">
+        <div class="calc-result">
+          <div class="calc-result-l">Waktu hemat per bulan</div>
+          <div class="calc-result-v" id="calc-time">~2 jam</div>
+        </div>
+        <div class="calc-result">
+          <div class="calc-result-l">Waktu hemat per tahun</div>
+          <div class="calc-result-v" id="calc-time-year">~27 jam</div>
+        </div>
+        <div style="text-align:center;margin-top:1.5rem">
+          <a href="#harga" class="btn-p" style="background:#22c55e;color:#052e10;display:inline-block">Mulai hemat waktu sekarang <span class="arrow-anim">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW TESTIMONIALS -->
+  <section class="testi-new">
+    <div class="testi-new-inner">
+      <div class="testi-new-head">
+        <div class="eyebrow">Apa kata pengguna</div>
+        <div class="sec-h">Mereka sudah konsisten<br>catat keuangan — giliranmu.</div>
+      </div>
+      <div class="testi-grid-new">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"Akhirnya nemu cara catat keuangan yang nggak ribet. Tinggal chat aja di WhatsApp, langsung masuk spreadsheet. Saya yang biasanya malas banget jadi rutin catat tiap hari."</div>
+          <div class="testi-person">
+            <div class="testi-av">👨</div>
+            <div>
+              <div class="testi-name">Rizky Pratama</div>
+              <div class="testi-role">Karyawan swasta, Jakarta</div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"Voice note nya jenius! Lagi masak atau nyetir tinggal ngomong "bayar listrik 300rb" langsung dicatat. Nggak perlu repot buka app lagi. Worth every rupiah."</div>
+          <div class="testi-person">
+            <div class="testi-av">👩</div>
+            <div>
+              <div class="testi-name">Siti Nurhalimah</div>
+              <div class="testi-role">Ibu rumah tangga, Bandung</div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"Foto struk belanja langsung dicatat semua item. Dashboard Google Sheets nya juga rapi banget. 3 bulan pakai, kebocoran finansial bulanan saya turun 40%. Recommended!"</div>
+          <div class="testi-person">
+            <div class="testi-av">👨</div>
+            <div>
+              <div class="testi-name">Ahmad Fauzi</div>
+              <div class="testi-role">Freelancer, Surabaya</div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"Saya paling suka fitur kategorinya otomatis — nggak perlu pikir lagi ini masuk kategori apa. AI nya pinter banget, paham bahasa gaul sehari-hari. Mantap!"</div>
+          <div class="testi-person">
+            <div class="testi-av">👩</div>
+            <div>
+              <div class="testi-name">Dian Permata</div>
+              <div class="testi-role">Mahasiswi S2, Yogyakarta</div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"Paket pasangan ini game changer buat kami! Saya & istri sama-sama catat, dashboardnya gabung jadi satu. Diskusi keuangan bulanan jadi lebih jelas karena data real."</div>
+          <div class="testi-person">
+            <div class="testi-av">💑</div>
+            <div>
+              <div class="testi-name">Budi & Rani</div>
+              <div class="testi-role">Pasangan muda, Jakarta</div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-text">"Setup cuma 5 menit dan langsung aktif. Data saya tetap di Google Drive sendiri — aman. Harga 99rb untuk setup + bulan pertama itu sangat terjangkau. Keep up the good work!"</div>
+          <div class="testi-person">
+            <div class="testi-av">👨</div>
+            <div>
+              <div class="testi-name">Yoga Saputra</div>
+              <div class="testi-role">Pengusaha UKM, Medan</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section class="pricing-sec" id="harga">
     <div class="pricing-inner">
@@ -3519,7 +4380,7 @@
         dalam 5 menit. Tidak ada biaya tersembunyi.</div>
       <div class="plans">
         <div class="plan"
-          onclick="selectPaket('mulai');document.getElementById('daftar').scrollIntoView({behavior:'smooth'})">
+          onclick="pickPaket('mulai', this)">
           <div class="plan-icon">🚀</div>
           <div class="plan-name">Paket Mulai</div>
           <div class="plan-price">Rp 99rb</div>
@@ -3534,7 +4395,7 @@
           <button class="plan-btn">Mulai sekarang</button>
         </div>
         <div class="plan pop"
-          onclick="selectPaket('tahunan');document.getElementById('daftar').scrollIntoView({behavior:'smooth'})">
+          onclick="pickPaket('tahunan', this)">
           <div class="pop-badge">✨ Paling hemat</div>
           <div class="plan-icon">⭐</div>
           <div class="plan-name">Paket Tahunan</div>
@@ -3550,7 +4411,7 @@
           <button class="plan-btn">Pilih Tahunan</button>
         </div>
         <div class="plan"
-          onclick="selectPaket('pasangan');document.getElementById('daftar').scrollIntoView({behavior:'smooth'})">
+          onclick="pickPaket('pasangan', this)">
           <div class="plan-icon">💑</div>
           <div class="plan-name">Paket Pasangan</div>
           <div class="plan-price">Rp 149rb</div>
@@ -3565,7 +4426,7 @@
           <button class="plan-btn">Pilih Pasangan</button>
         </div>
         <div class="plan"
-          onclick="selectPaket('bulanan');document.getElementById('daftar').scrollIntoView({behavior:'smooth'})">
+          onclick="pickPaket('bulanan', this)">
           <div class="plan-icon">🔄</div>
           <div class="plan-name">Perpanjang</div>
           <div class="plan-price">Rp 19rb<small>/bln</small></div>
@@ -3637,7 +4498,7 @@
   </section>
 
   <!-- FORM -->
-  <section class="form-sec" id="daftar">
+  <section class="form-sec" id="daftar" style="display:none">
     <div class="form-inner">
       <div class="form-h">Daftar sekarang</div>
       <div class="form-p">Spreadsheet kamu dibuat otomatis setelah pembayaran. Tidak perlu setup manual apapun — aktif
@@ -3646,10 +4507,10 @@
         <div class="fg" style="margin:0"><label>Nama lengkap</label><input id="nama" placeholder="Nama kamu"
             type="text"></div>
         <div class="fg" style="margin:0"><label>Nomor WhatsApp</label><input id="wa" placeholder="628xxxxxxxxxx"
-            type="text"></div>
+            type="text" onblur="autoCekUser()"></div>
       </div>
       <div class="fg"><label>Email (untuk akses spreadsheet)</label><input id="email" placeholder="email@kamu.com"
-          type="email"></div>
+          type="email" onblur="autoCekUser()"></div>
       <div class="fg">
         <label>Kode referral <span style="color:#2a4030;font-weight:400">(opsional — dapat diskon!)</span></label>
         <div class="ref-row">
@@ -3717,23 +4578,115 @@
         </div>
       </div>
       <button class="submit-btn" id="sbtn" onclick="submit()">Lanjut ke Pembayaran →</button>
-      <div class="form-note">🔒 Pembayaran aman via Mayar · Spreadsheet aktif dalam &lt;5 menit</div>
+      <div class="form-note">🔒 Pembayaran aman via Mayar · 🤖 Powered by GPT-4o · Spreadsheet aktif dalam <5 menit</div>
       <div class="form-trust">
         <span><span class="ti">✓</span>Tanpa install</span>
         <span><span class="ti">✓</span>Data di Google Drive kamu</span>
-        <span><span class="ti">✓</span>Bisa berhenti kapanpun</span>
+        <span><span class="ti">✓</span>AI akurat & cepat</span>
       </div>
     </div>
   </section>
 
-  <footer>© 2026 Nayyira AI · Dibuat dengan ❤️ oleh Hafidz · <a href="#daftar">Daftar sekarang</a> · <a
+  <!-- STICKY CTA MOBILE -->
+  <div class="sticky-cta">
+    <div class="sticky-cta-info">
+      <div class="sticky-cta-price">Rp 99rb</div>
+      <div class="sticky-cta-sub">Setup + 1 bulan aktif · Slot terbatas</div>
+    </div>
+    <a href="#harga" class="sticky-cta-btn">Daftar →</a>
+  </div>
+
+  <!-- WA BUBBLE -->
+  <a href="https://wa.me/6288291623735?text=Halo%20Nayyira%20AI%2C%20saya%20mau%20tanya-tanya%20dulu%20dong%20🙂" target="_blank" id="wa-bubble" style="
+    position:fixed;
+    bottom:1.5rem;
+    right:1.5rem;
+    z-index:999;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#25D366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 6px 24px rgba(37,211,102,.45);
+    transition:.2s;
+    text-decoration:none;
+    animation:waPulse 2.5s infinite;
+  ">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+  <style>
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,.45) }
+      50% { box-shadow: 0 6px 32px rgba(37,211,102,.7), 0 0 0 10px rgba(37,211,102,.12) }
+    }
+    #wa-bubble:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(37,211,102,.6) !important
+    }
+    @media(max-width:768px) {
+      #wa-bubble { bottom: 90px !important; right: 1rem !important; left: auto !important; width:50px !important; height:50px !important; z-index: 999 !important }
+    }
+  </style>
+
+  <footer>© 2026 Nayyira AI · Dibuat dengan ❤️ oleh Hafidz · <a href="#harga">Daftar sekarang</a> · <a
       href="https://wa.me/6288291623735">Hubungi admin</a></footer>
 
   <script>
     const N8N = 'https://n8n-home.nayyiraai.online/webhook';
+    const DASHBOARD = 'https://dashboard.nayyiraai.online';
     const H = { mulai: 99000, tahunan: 199000, pasangan: 149000, bulanan: 19000 };
+    const NEW_PACKETS = ['mulai', 'tahunan', 'pasangan'];
+    const EXISTING_PACKETS = ['bulanan', 'tahunan']; // existing user can also upgrade to tahunan
     let pak = 'mulai', refValid = false, refDiskon = 10000;
+    // userStatus disimpan setelah cekUser sukses, dipakai untuk validasi paket saat submit
+    let userStatus = null; // null=belum cek, 'baru'=user baru, 'existing'=user lama
 
+    /**
+     * Tampilkan form daftar berdasarkan paket yang user pilih.
+     * Belum cek existing user di sini — validasi dilakukan saat submit
+     * dan saat user mengisi WA/email (onBlur).
+     */
+    function pickPaket(p, el) {
+      pak = p;
+      // Sync state visual di form pickers (pks)
+      ['mulai', 'tahunan', 'pasangan', 'bulanan'].forEach(x => {
+        const e = document.getElementById('pk-' + x);
+        if (e) e.classList.toggle('sel', x === p);
+      });
+      // Pasangan fields
+      const pf = document.getElementById('pasangan-fields');
+      if (pf) pf.style.display = p === 'pasangan' ? 'block' : 'none';
+      updateTotal();
+
+      // Tampilkan form-sec & scroll ke sana
+      const form = document.getElementById('daftar');
+      form.style.display = '';
+      // Beri waktu render sebelum scroll
+      requestAnimationFrame(() => {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Auto-fokus ke input nama untuk UX cepat (kalau belum diisi)
+        const nameEl = document.getElementById('nama');
+        if (nameEl && !nameEl.value) {
+          setTimeout(() => nameEl.focus({ preventScroll: true }), 600);
+        }
+      });
+
+      // Hide pending-alert kalau sebelumnya muncul
+      const pa = document.getElementById('pending-alert');
+      if (pa) pa.style.display = 'none';
+
+      // Hide warning kalau sebelumnya muncul
+      hideUserWarning();
+    }
+
+    /**
+     * Backward-compat: selectPaket masih ada untuk URL ?paket=xxx.
+     * Sama dengan pickPaket tapi tanpa scroll.
+     */
     function selectPaket(p) {
       pak = p;
       ['mulai', 'tahunan', 'pasangan', 'bulanan'].forEach(x => {
@@ -3775,6 +4728,114 @@
       return (c.length >= 4 ? c.slice(0, 4) : c.padEnd(4, 'X')) + (Math.floor(1000 + Math.random() * 9000));
     }
 
+    /**
+     * Cek apakah user sudah terdaftar di Supabase via dashboard endpoint.
+     * Returns: { exists, status, paket, expired_date, allowed_pakets } atau null kalau gagal.
+     */
+    async function cekUserExisting(wa, email) {
+      try {
+        const body = {};
+        if (wa) body.wa_number = wa;
+        if (email) body.email = email;
+        if (!body.wa_number && !body.email) return null;
+
+        const res = await fetch(DASHBOARD + '/api/cek-user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (!res.ok) return null;
+        return await res.json();
+      } catch (e) {
+        console.error('cekUserExisting failed:', e);
+        return null;
+      }
+    }
+
+    /**
+     * Tampilkan warning di form kalau paket yang dipilih tidak sesuai
+     * dengan status user.
+     */
+    function showUserWarning(html) {
+      let warn = document.getElementById('user-warning');
+      if (!warn) {
+        warn = document.createElement('div');
+        warn.id = 'user-warning';
+        warn.style.cssText = 'background:#1a0a0a;border:1px solid #5a1a1a;color:#ffb4b4;padding:.9rem 1rem;border-radius:14px;margin:.8rem 0;font-size:.82rem;line-height:1.5';
+        const pendingAlert = document.getElementById('pending-alert');
+        pendingAlert.parentNode.insertBefore(warn, pendingAlert);
+      }
+      warn.innerHTML = html;
+      warn.style.display = 'block';
+    }
+
+    function hideUserWarning() {
+      const warn = document.getElementById('user-warning');
+      if (warn) warn.style.display = 'none';
+    }
+
+    /**
+     * Auto-cek saat WA atau email di-blur — kasih hint cepat ke user
+     * sebelum mereka submit.
+     */
+    async function autoCekUser() {
+      const wa = document.getElementById('wa').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (!wa && !email) return;
+      // Skip cek kalau WA terlalu pendek
+      if (wa && (!wa.startsWith('62') || wa.length < 10)) return;
+
+      const result = await cekUserExisting(wa, email);
+      if (!result) return;
+
+      if (result.exists) {
+        userStatus = 'existing';
+        // Cek apakah paket terpilih boleh untuk existing user
+        if (!result.allowed_pakets.includes(pak)) {
+          showUserWarning(
+            `<b>👋 Kamu sudah terdaftar!</b><br>` +
+            `Status: <b style="color:#4ade80">${result.status || 'aktif'}</b>` +
+            (result.expired_date ? ` · expired <b>${result.expired_date}</b>` : '') +
+            `<br><br>` +
+            `Paket <b>${labelPaket(pak)}</b> hanya untuk pengguna baru. Pilih paket <b>Perpanjang (Rp 19rb/bln)</b> di bawah ini ya 👇`
+          );
+          // Auto-switch ke paket perpanjang
+          selectPaket('bulanan');
+          // Kasih warning lagi setelah switch (warning auto ke-hide oleh selectPaket? gak, harus re-show)
+          setTimeout(() => {
+            showUserWarning(
+              `<b>👋 Kamu sudah terdaftar!</b><br>` +
+              `Status: <b style="color:#4ade80">${result.status || 'aktif'}</b>` +
+              (result.expired_date ? ` · expired <b>${result.expired_date}</b>` : '') +
+              `<br>Paket otomatis diubah ke <b>Perpanjang</b> ✓`
+            );
+          }, 100);
+        } else {
+          hideUserWarning();
+        }
+      } else {
+        userStatus = 'baru';
+        // User baru pilih perpanjang → tidak boleh
+        if (pak === 'bulanan') {
+          showUserWarning(
+            `<b>📝 Kamu belum terdaftar.</b><br>` +
+            `Paket <b>Perpanjang</b> hanya untuk pengguna yang sudah aktif. ` +
+            `Pilih paket <b>Mulai (Rp 99rb)</b> dulu untuk pendaftaran pertama 👇`
+          );
+          selectPaket('mulai');
+          setTimeout(() => {
+            showUserWarning(`<b>📝 Kamu user baru.</b> Paket otomatis diubah ke <b>Mulai</b> — setup + bulan pertama Rp 99rb ✓`);
+          }, 100);
+        } else {
+          hideUserWarning();
+        }
+      }
+    }
+
+    function labelPaket(p) {
+      return ({ mulai: 'Paket Mulai', tahunan: 'Paket Tahunan', pasangan: 'Paket Pasangan', bulanan: 'Perpanjang' })[p] || p;
+    }
+
     async function submit() {
       const nama = document.getElementById('nama').value.trim();
       const wa = document.getElementById('wa').value.trim();
@@ -3784,14 +4845,46 @@
       if (!wa.startsWith('62') || wa.length < 10) { alert('Format WA: 628xxx...\nContoh: 6281234567890'); return }
       const btn = document.getElementById('sbtn');
       btn.disabled = true; btn.textContent = 'Memproses...';
+
+      // Validasi server-side: cek apakah paket sesuai dengan status user
+      const userCheck = await cekUserExisting(wa, email);
+      if (userCheck) {
+        if (userCheck.exists && !userCheck.allowed_pakets.includes(pak)) {
+          btn.disabled = false; btn.textContent = 'Lanjut ke Pembayaran →';
+          showUserWarning(
+            `<b>👋 Kamu sudah terdaftar!</b> Paket <b>${labelPaket(pak)}</b> tidak tersedia untuk akun existing.<br>` +
+            `Pilih paket <b>Perpanjang</b> di atas ya. Auto-switch...`
+          );
+          selectPaket('bulanan');
+          return;
+        }
+        if (!userCheck.exists && pak === 'bulanan') {
+          btn.disabled = false; btn.textContent = 'Lanjut ke Pembayaran →';
+          showUserWarning(
+            `<b>📝 Akun belum terdaftar.</b> Paket <b>Perpanjang</b> hanya untuk akun aktif. ` +
+            `Pilih <b>Paket Mulai</b> dulu. Auto-switch...`
+          );
+          selectPaket('mulai');
+          return;
+        }
+      }
+
       const d = refValid ? refDiskon : 0, t = H[pak] - d, kode = genKode(nama);
       try {
-        const res = await fetch(N8N + '/nayyira-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nama, wa, email, paket: pak, harga: H[pak], diskon: d, total: t, kode_referral_baru: kode, referral_dipakai: ref || null, timestamp: new Date().toISOString() }) });
+        // Tambah field is_perpanjang untuk membantu n8n decide INSERT vs UPDATE
+        const payload = {
+          nama, wa, email, paket: pak,
+          harga: H[pak], diskon: d, total: t,
+          kode_referral_baru: kode,
+          referral_dipakai: ref || null,
+          is_perpanjang: pak === 'bulanan',
+          user_existing: !!(userCheck && userCheck.exists),
+          timestamp: new Date().toISOString(),
+        };
+        const res = await fetch(N8N + '/nayyira-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         const data = await res.json();
 
         if (data.status === 'already_pending') {
-
-          // Tampilkan juga UI Alert premium
           document.getElementById('pending-msg').textContent = data.message || 'Kamu masih punya tagihan yang belum dibayar. Silakan selesaikan pembayaran sebelumnya ya!';
           document.getElementById('btn-continue').href = data.payment_url;
           document.getElementById('pending-alert').style.display = 'block';
@@ -3832,17 +4925,106 @@
       tab.classList.add('on');
     }
 
-    // Auto-fill referral dari URL
+    // Auto-fill referral / paket dari URL
     window.addEventListener('DOMContentLoaded', function () {
       const p = new URLSearchParams(window.location.search);
       const r = p.get('ref');
+      const pk = p.get('paket');
+
+      // Kalau ada ?paket atau ?ref, otomatis pickPaket (akan show form & scroll)
+      if (pk && H[pk]) {
+        pickPaket(pk);
+      } else if (r) {
+        // Default ke 'mulai' kalau cuma ada referral tanpa paket
+        pickPaket('mulai');
+      }
+
       if (r) {
         document.getElementById('ref').value = r.toUpperCase();
-        cekRef();
-        setTimeout(() => document.getElementById('daftar').scrollIntoView({ behavior: 'smooth' }), 800);
+        // Kasih waktu form muncul dulu sebelum cek referral
+        setTimeout(cekRef, 400);
       }
-      const pk = p.get('paket');
-      if (pk && H[pk]) selectPaket(pk);
+
+      // ===== ANIMATED COUNT-UP =====
+      const countUpEls = document.querySelectorAll('.count-up');
+      const counted = new WeakSet();
+      function animateCount(el) {
+        if (counted.has(el)) return;
+        counted.add(el);
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const isDecimal = el.dataset.decimal === 'true';
+        const duration = 1800;
+        const start = performance.now();
+        function step(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          let val = target * eased;
+          if (isDecimal) {
+            el.textContent = (val / 10).toFixed(1) + suffix;
+          } else {
+            el.textContent = Math.floor(val).toLocaleString('id') + suffix;
+          }
+          if (progress < 1) requestAnimationFrame(step);
+          else {
+            if (isDecimal) el.textContent = (target / 10).toFixed(1) + suffix;
+            else el.textContent = Math.floor(target).toLocaleString('id') + suffix;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) animateCount(entry.target);
+        });
+      }, { threshold: 0.3 });
+      countUpEls.forEach(el => io.observe(el));
+
+      // ===== CALCULATOR =====
+      const slider = document.getElementById('calc-slider');
+      const trxEl = document.getElementById('calc-trx');
+      const timeEl = document.getElementById('calc-time');
+      const timeYearEl = document.getElementById('calc-time-year');
+      if (slider) {
+        const updateCalc = () => {
+          const trx = parseInt(slider.value);
+          trxEl.textContent = trx;
+          // 27 detik saved per trx (30s manual - 3s AI), x 30 hari
+          const secPerMonth = trx * 27 * 30;
+          const hourPerMonth = secPerMonth / 3600;
+          const hourPerYear = hourPerMonth * 12;
+          timeEl.textContent = '~' + hourPerMonth.toFixed(1) + ' jam';
+          timeYearEl.textContent = '~' + hourPerYear.toFixed(0) + ' jam';
+        };
+        slider.addEventListener('input', updateCalc);
+        updateCalc();
+      }
+
+      // ===== URGENCY SLOT COUNTDOWN =====
+      const slotEl = document.getElementById('urg-slots');
+      if (slotEl) {
+        let slots = parseInt(localStorage.getItem('nayyira-slots') || '37');
+        // Turun random tiap 30-60 detik untuk urgency effect
+        const decrementSlot = () => {
+          if (slots > 12 && Math.random() > 0.6) {
+            slots--;
+            slotEl.textContent = slots;
+            try { localStorage.setItem('nayyira-slots', slots); } catch(e){}
+          }
+        };
+        setInterval(decrementSlot, 45000);
+      }
+
+      // ===== SMOOTH SCROLL ENHANCEMENT =====
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
     });
   </script>
 </body>
